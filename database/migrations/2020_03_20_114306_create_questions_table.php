@@ -18,7 +18,7 @@ class CreateQuestionsTable extends Migration
             $table->integer('user_id');
             $table->string('title');
             $table->string('body');
-            $table->string('image_path');
+            $table->string('image_path')->nullable();
             $table->timestamps();
         });
     }

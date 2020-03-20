@@ -19,6 +19,8 @@ Route::get('/question/create', function () {
     return view('question.create');
 });
 
+Route::post('/question/create', 'QuestionController@create');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

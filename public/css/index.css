@@ -168,7 +168,29 @@ header form:after {
 .content {
 	float: left;
 	width: 758px;
-	padding: 10px 0 0 30px;
+	padding: 10px 0 30px 30px;
+}
+
+.content-header {
+	margin: 10px auto;
+	text-align: center;
+	width: 300px;
+	border-bottom: 2px solid #000;
+}
+
+.content form {
+	margin-top: 40px;
+	text-align: center;
+}
+
+.content input[type="file"] {
+	width: 680px;
+}
+
+.content label {
+	font-weight: bold;
+	font-size: 18px;
+	margin: 0 auto;
 }
 
 .search-question-frame {
