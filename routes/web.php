@@ -15,12 +15,11 @@ Route::get('/', function () {
     return view('top');
 });
 
-Route::get('/question/create', function () {
-    return view('question.create');
+Route::group(['middleware' => 'auth'], function() {
+	Route::get('/question/create', 'QuestionController@add');
+	Route::post('/question/create', 'QuestionController@create');
 });
-
-Route::post('/question/create', 'QuestionController@create');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
