@@ -14,7 +14,6 @@ body {
 	position: -webkit-sticky;
 	top: 0;
 	z-index: 3;
-	overflow: visible;
 }
 
 header {
@@ -69,6 +68,7 @@ header form:after {
 
 .right-nav {
 	float: right;
+	margin: 0;
 }
 
 .right-nav li {
@@ -85,8 +85,11 @@ header form:after {
 }
 
 .right-nav li a:hover {
-	background-color: #000;
-	color: #fff;
+	background-color: #dcdcdc;
+}
+
+.dropdown-menu {
+	padding: 0;
 }
 
 .right-nav:after {
@@ -172,7 +175,7 @@ header form:after {
 }
 
 .content-header {
-	margin: 10px auto;
+	margin: 10px auto 30px auto;
 	text-align: center;
 	width: 300px;
 	border-bottom: 2px solid #000;
@@ -211,6 +214,7 @@ header form:after {
 .search-question-frame-title {
 	color: #0000ff;
 	width: 100%;
+	font-size: 22px;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -221,10 +225,7 @@ header form:after {
 	height: auto;
 	font-size: 14px;
 	margin: 5px 0;
-	overflow: hidden;
-	display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
+	word-wrap: break-word;
 }
 
 .search-question-frame a {
@@ -240,10 +241,16 @@ header form:after {
 	box-shadow: 0px 0px 4px 2px #dcdcdc;
 }
 
+.profile-image {
+	background-position: center;
+	background-size: cover;
+	border-radius: 50%;
+	display: inline-block;
+}
+
 .auth-area {
-	background-color: #F2F2F2;
-	min-height: calc(100vh - 100px - 60px);
-	margin-top: -30px;
+	background-color: #fff;
+	min-height: calc(100vh - 100px - 120px);
 }
 
 .middle {
@@ -260,6 +267,47 @@ header form:after {
 	color: #000;
 	text-align: center;
 	font-size: 18px;
+}
+
+.question-display-frame {
+	width: 720px;
+	border: 1px solid #0000ff;
+	word-wrap: break-word;
+	padding: 10px;
+	border-radius: 5px;
+}
+
+.question-display-frame-left {
+	float: left;
+	text-align: center;
+}
+
+.question-display-frame p {
+	margin: 0;
+}
+
+.question-display-frame-date {
+	font-size: 12px;
+}
+
+.question-display-frame-title {
+	float: left;
+	width: 545px;
+	height: 120px;
+	color: #ff0000;
+	font-size: 22px;
+	padding-left: 10px;
+}
+
+.question-display-frame-body {
+	font-size: 18px;
+}
+
+.answer-btn {
+	font-size: 18px;
+	display: block;
+	width: 100px;
+	margin: 30px auto;
 }
 
 footer {

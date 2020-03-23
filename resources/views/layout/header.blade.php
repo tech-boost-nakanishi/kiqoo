@@ -13,20 +13,21 @@
                 <li><a class="nav-link" href="{{ url('register') }}">新規登録</a></li>
             @else
                 <li class="dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="position: relative; padding-left: 60px;">
+                        <p class="profile-image" style="width: 45px; height: 45px; background-image: url('{{ Auth::user()->image_path }}'); position: absolute; left: 10px;"></p>
                         {{ Auth::user()->name }} <span class="caret"></span>
                     </a>
 
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="z-index: 999;">
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ action('QuestionController@add') }}">
+                            質問する
                         </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
+                        <a class="dropdown-item" href="{{ url('list/questions') }}">
+                            質問一覧
+                        </a>
+                        <a class="dropdown-item" href="{{ url('logout') }}">
+                            ログアウト
+                        </a>
                     </div>
                 </li>
             @endguest

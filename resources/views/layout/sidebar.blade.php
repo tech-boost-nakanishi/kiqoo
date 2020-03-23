@@ -3,7 +3,7 @@
 <div class="sidebar">
     <ul class="side-menu">
         <li>
-            <a href="#">Home</a>
+            <a href="/">Home</a>
         </li>
         <li class="ranking-menu">
             <a href="#">User Ranking</a>

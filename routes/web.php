@@ -11,13 +11,19 @@
 |
 */
 
-Route::get('/', function () {
-    return view('top');
-});
+Route::get('/', 'QuestionController@index');
+
+Route::get('/logout', 'HomeController@logout');
+
+Route::get('/questions/{id}', 'QuestionController@show');
 
 Route::group(['middleware' => 'auth'], function() {
 	Route::get('/question/create', 'QuestionController@add');
 	Route::post('/question/create', 'QuestionController@create');
+	Route::get('/question/edit/{id}', 'QuestionController@edit')->name('question.edit');
+	Route::post('/question/edit', 'QuestionController@update');
+	Route::get('/question/delete', 'QuestionController@delete');
+	Route::get('/list/questions', 'QuestionController@list');
 });
 
 Auth::routes();
