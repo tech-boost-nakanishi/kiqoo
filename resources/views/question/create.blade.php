@@ -26,7 +26,7 @@
 			　　<div class="alert alert-danger" role="alert" style="width: 100%;">{{ $errors->first('body') }}</div>
 			@endif
 			<label>本文</label>
-			<textarea class="form-control" name="body" rows="10" placeholder="質問文を入力してください">{{ old('body') }}</textarea>
+			<textarea class="form-control" name="body" rows="15" placeholder="質問文を入力してください">{{ old('body') }}</textarea>
 		</div>
 		<div class="form-group row">
 			<label>画像:</label>

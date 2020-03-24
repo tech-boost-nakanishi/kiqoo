@@ -271,7 +271,7 @@ header form:after {
 
 .question-display-frame {
 	width: 720px;
-	border: 1px solid #0000ff;
+	border: 2px solid #58D3F7;
 	word-wrap: break-word;
 	padding: 10px;
 	border-radius: 5px;
@@ -294,8 +294,9 @@ header form:after {
 	float: left;
 	width: 545px;
 	height: 120px;
-	color: #ff0000;
+	color: #000;
 	font-size: 22px;
+	font-weight: bold;
 	padding-left: 10px;
 }
 
@@ -303,11 +304,24 @@ header form:after {
 	font-size: 18px;
 }
 
-.answer-btn {
+.answer-btn, .question-btn {
 	font-size: 18px;
 	display: block;
 	width: 100px;
 	margin: 30px auto;
+}
+
+.question-btn {
+	width: 130px;
+}
+
+.answer-count {
+	width: 100%;
+	background-color: #dcdcdc;
+	font-size: 22px;
+	font-weight: bold;
+	padding: 10px;
+	border-radius: 5px;
 }
 
 footer {

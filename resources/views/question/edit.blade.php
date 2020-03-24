@@ -22,7 +22,7 @@
 			　　<div class="alert alert-danger" role="alert" style="width: 100%;">{{ $errors->first('body') }}</div>
 			@endif
 			<label>本文</label>
-			<textarea class="form-control" name="body" rows="10">{{ $question->body }}</textarea>
+			<textarea class="form-control" name="body" rows="15">{{ $question->body }}</textarea>
 		</div>
 		<div class="form-group row">
 			<label>画像:</label>

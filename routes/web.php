@@ -23,7 +23,11 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('/question/edit/{id}', 'QuestionController@edit')->name('question.edit');
 	Route::post('/question/edit', 'QuestionController@update');
 	Route::get('/question/delete', 'QuestionController@delete');
+	Route::get('/answer/delete', 'AnswerController@delete');
+	Route::get('/answer/create/{id}', 'AnswerController@add');
+	Route::post('/answer/create', 'AnswerController@create');
 	Route::get('/list/questions', 'QuestionController@list');
+	Route::get('/list/answers', 'AnswerController@list');
 });
 
 Auth::routes();

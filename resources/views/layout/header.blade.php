@@ -25,6 +25,9 @@
                         <a class="dropdown-item" href="{{ url('list/questions') }}">
                             質問一覧
                         </a>
+                        <a class="dropdown-item" href="{{ url('list/answers') }}">
+                            回答一覧
+                        </a>
                         <a class="dropdown-item" href="{{ url('logout') }}">
                             ログアウト
                         </a>

@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Question;
 
+use App\Answer;
+
 use App\User;
 
 use Storage;
@@ -25,7 +27,9 @@ class QuestionController extends Controller
 		$question = Question::findOrFail($id);
 		$user_id = $question->user_id;
 		$user = User::find($user_id);
-		return view('question.index', ['question' => $question , 'user' => $user]);
+
+		$answers = Answer::where('question_id', $id);
+		return view('question.index', ['question' => $question , 'user' => $user , 'answers' => $answers]);
 	}
 
 	public function add()

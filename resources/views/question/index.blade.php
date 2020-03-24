@@ -18,7 +18,7 @@
 				@endif
 			</div>
 		</div>
-		<p class="question-display-frame-title">{{ $question->title }}</p>
+		<h2 class="question-display-frame-title">{{ $question->title }}</h2>
 		<hr style="clear: both;">
 		<p class="question-display-frame-body">{{ $question->body }}</p>
 		@if(!is_null($question->image_path))
@@ -27,8 +27,13 @@
 	</div>
 
 @auth
-<a href="#" class="btn btn-primary answer-btn">回答する</a>
+<a href="{{ action('AnswerController@add', ['id' => $question->id]) }}" class="btn btn-primary answer-btn">回答する</a>
 @endauth
+
+	<div class="answer-count">
+		回答({{ count($answers) }}件)
+	</div>
+
 </div>
 @endsection
 
