@@ -2,8 +2,8 @@
 <div class="header-bar">
     <header>
        <h1><a href=" {{ url('/') }}">kiqoo</a></h1>
-        <form action="" method="get">
-            <input type="text" class="form-control" name="" value="" placeholder="キーワードで検索">
+        <form action="{{ action('QuestionController@search') }}" method="get" enctype="multipart/form-data">
+            <input type="text" class="form-control" name="keyword" value="" placeholder="キーワードで検索">
             {{ csrf_field() }}
             <input type="submit" class="btn btn-primary" value="検索">
         </form>

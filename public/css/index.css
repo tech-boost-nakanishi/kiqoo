@@ -293,7 +293,7 @@ header form:after {
 .question-display-frame-title {
 	float: left;
 	width: 545px;
-	height: 120px;
+	height: auto;
 	color: #000;
 	font-size: 22px;
 	font-weight: bold;
@@ -322,6 +322,42 @@ header form:after {
 	font-weight: bold;
 	padding: 10px;
 	border-radius: 5px;
+	margin-top: 20px;
+}
+
+.answer-display-frame {
+	width: 720px;
+	border: 2px solid #000;
+	word-wrap: break-word;
+	padding: 10px;
+	border-radius: 5px;
+	margin-top: 30px;
+}
+
+.answer-display-frame p {
+	margin: 0;
+}
+
+.answer-display-frame-left {
+	float: left;
+	text-align: center;
+	height: auto;
+}
+
+.answer-display-frame-date {
+	font-size: 12px;
+}
+
+.answer-display-frame-body {
+	float: left;
+	width: 545px;
+	padding-left: 10px;
+}
+
+.answer-display-frame:after {
+	clear: both;
+	display: block;
+	content: " ";
 }
 
 footer {

@@ -28,8 +28,29 @@ class QuestionController extends Controller
 		$user_id = $question->user_id;
 		$user = User::find($user_id);
 
-		$answers = Answer::where('question_id', $id);
-		return view('question.index', ['question' => $question , 'user' => $user , 'answers' => $answers]);
+		$answers = Answer::where('question_id', $id)->orderBy('created_at', 'desc')->get();
+		$answers_count = count($answers);
+		$answer_user = array();
+		foreach ($answers as $answer) {
+			$users = User::find($answer->user_id);
+			$answer_user[] = $users;
+		}
+		return view('question.index', ['question' => $question , 'user' => $user , 'answers' => $answers , 'answers_count' => $answers_count , 'answer_user' => $answer_user]);
+	}
+
+	public function search(Request $request)
+	{
+		$keyword = $request->keyword;
+		// if(empty($keyword)){
+		// 	$keyword = "%20";
+		// }
+		return redirect('/questions/search/keyword/' . $keyword);
+	}
+
+	public function searchresult($keyword)
+	{
+		$keyword = $keyword;
+		return view('question.search', ['keyword' => $keyword]);
 	}
 
 	public function add()

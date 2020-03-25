@@ -17,6 +17,10 @@ Route::get('/logout', 'HomeController@logout');
 
 Route::get('/questions/{id}', 'QuestionController@show');
 
+Route::get('*', 'QuestionController@search');
+
+Route::get('/questions/search/keyword/{keyword}', 'QuestionController@searchresult');
+
 Route::group(['middleware' => 'auth'], function() {
 	Route::get('/question/create', 'QuestionController@add');
 	Route::post('/question/create', 'QuestionController@create');
