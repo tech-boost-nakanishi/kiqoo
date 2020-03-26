@@ -56,6 +56,39 @@ class AnswerController extends Controller
 		return view('answer.list', [ 'answers' => $answers ]);
 	}
 
+	public function edit($id)
+	{
+		$answer = Answer::findOrFail($id);
+		$question = Question::find($answer->question_id);
+		$user = User::find($question->user_id);
+		return view('answer.edit', ['answer' => $answer , 'question' => $question , 'user' => $user]);
+	}
+
+	public function update(Request $request)
+	{
+		$this->validate($request, Answer::$rules);
+
+		$answer = Answer::find($request->id);
+		$answer_form = $request->all();
+		if (isset($answer_form['image_path'])) {
+			$path = Storage::disk('s3')->putFile('/',$answer_form['image_path'],'public');
+			$answer->image_path = Storage::disk('s3')->url($path);
+			unset($answer_form['image_path']);
+		} elseif (isset($request->remove)) {
+			$image = $answer->image_path;
+			$image = explode("/", $image);
+			$img = end($image);
+			$disk = Storage::disk('s3');
+			$disk->delete($img);
+			$answer->image_path = null;
+			unset($answer_form['remove']);
+		}
+		unset($answer_form['_token']);
+		$answer->fill($answer_form)->save();
+
+		return redirect('/list/answers')->with('answeredit', '投稿を変更しました。');
+	}
+
 	public function delete(Request $request)
 	{
 		$answer = Answer::find($request->id);

@@ -8,8 +8,8 @@
 <div class="content">
 	<h2 class="content-header">回答一覧</h2>
 
-	@if(session('questionedit'))
-		<div class="alert alert-success" role="alert" style="width: 100%;">{{ session('questionedit') }}</div>
+	@if(session('answeredit'))
+		<div class="alert alert-success" role="alert" style="width: 100%;">{{ session('answeredit') }}</div>
 	@endif
 
 	@if(session('answerdelete'))
@@ -28,7 +28,7 @@
 					<td>{{ $answer->created_at->format('Y年m月d日 H:i') }}</td>
 					<td style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><a href="#">{{ $answer->body }}</a></td>
 					<td>
-						<a class="btn btn-info" href="#">編集</a>
+						<a class="btn btn-info" href="{{ route('answer.edit', ['id' => $answer->id]) }}">編集</a>
 						<a class="btn btn-danger" href="#" data-toggle="modal" data-target="#deleteModal{{ $answer->id }}">削除</a>
 					</td>
 				</tr>

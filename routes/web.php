@@ -17,9 +17,7 @@ Route::get('/logout', 'HomeController@logout');
 
 Route::get('/questions/{id}', 'QuestionController@show');
 
-Route::get('*', 'QuestionController@search');
-
-Route::get('/questions/search/keyword/{keyword}', 'QuestionController@searchresult');
+Route::get('/search', 'QuestionController@search');
 
 Route::group(['middleware' => 'auth'], function() {
 	Route::get('/question/create', 'QuestionController@add');
@@ -30,6 +28,8 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('/answer/delete', 'AnswerController@delete');
 	Route::get('/answer/create/{id}', 'AnswerController@add');
 	Route::post('/answer/create', 'AnswerController@create');
+	Route::get('/answer/edit/{id}', 'AnswerController@edit')->name('answer.edit');
+	Route::post('/answer/edit', 'AnswerController@update');
 	Route::get('/list/questions', 'QuestionController@list');
 	Route::get('/list/answers', 'AnswerController@list');
 });

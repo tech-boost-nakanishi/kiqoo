@@ -41,15 +41,6 @@ class QuestionController extends Controller
 	public function search(Request $request)
 	{
 		$keyword = $request->keyword;
-		// if(empty($keyword)){
-		// 	$keyword = "%20";
-		// }
-		return redirect('/questions/search/keyword/' . $keyword);
-	}
-
-	public function searchresult($keyword)
-	{
-		$keyword = $keyword;
 		return view('question.search', ['keyword' => $keyword]);
 	}
 
@@ -93,7 +84,7 @@ class QuestionController extends Controller
 	{
 		$question = Question::findOrFail($id);
 		if($question->user_id != Auth::user()->id){
-			//abort(404);
+			abort(404);
 		}
 		return view('question.edit', [ 'question' => $question ]);
 	}
