@@ -26,17 +26,21 @@
 		</div>
 		<div class="form-group row">
 			<label>画像:</label>
-			<input type="file" class="form-control-file" name="image_path">
-			@if(!is_null($question->image_path))
-				<div class="form-text text-info">
-	                設定中: {{ $question->image_path }}
-	            </div>
-	            <div class="form-check">
-	                <label class="form-check-label">
-	                    <input type="checkbox" class="form-check-input" name="remove" value="true">画像を削除
-	                </label>
-	            </div>
-	        @endif
+			<input type="file" class="form-control-file" name="image_paths[]" multiple>
+		</div>
+		<div class="form-group row">
+			<label style="position: absolute;">設定中の画像の削除（複数選択可）</label><br>
+			<hr style="width: 100%; margin-top: 30px;">
+			@if(count($question->pictures) > 0)
+				@foreach($question->pictures as $pic)
+					<label for="removeimg{{ $pic->id }}" class="remove-image">
+						<input type="checkbox" name="remove[]" value="{{ $pic->id }}" id="removeimg{{ $pic->id }}" />
+						<img src="{{ $pic->image_path }}" height="150">
+					</label>
+				@endforeach
+			@else
+				<p>設定中の画像はありません。</p>
+			@endif
 		</div>
 		<input type="hidden" name="id" value="{{ $question->id }}">
 		{{ csrf_field() }}

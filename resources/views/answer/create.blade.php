@@ -24,8 +24,8 @@
                 <div class="modal-body" style="overflow: scroll;">
                     <div class="question-display-frame">
 						<div class="question-display-frame-left">
-							<p class="profile-image" style="width: 45px; height: 45px; background-image: url('{{ $user->image_path }}');"></p>
-							<p><a href="#">{{ $user->name }}</a></p>
+							<p class="profile-image" style="width: 45px; height: 45px; background-image: url('{{ $question->user->image_path }}');"></p>
+							<p><a href="#">{{ $question->user->name }}</a></p>
 							<div class="question-display-frame-date">
 								<p>投稿:{{ $question->created_at->format('Y年m月d日 H:i') }}</p>
 								@if($question->created_at != $question->updated_at)
@@ -36,9 +36,9 @@
 						<h2 class="question-display-frame-title">{{ $question->title }}</h2>
 						<hr style="clear: both;">
 						<p class="question-display-frame-body">{{ $question->body }}</p>
-						@if(!is_null($question->image_path))
-							<img src="{{ $question->image_path }}" alt="{{ $question->title }}" width="300">
-						@endif
+						@foreach($question->pictures as $picture)
+							<img src="{{ $picture->image_path }}" alt="" width="300">
+						@endforeach
 					</div>
                 </div>
                 <div class="modal-footer">
@@ -58,7 +58,7 @@
 		</div>
 		<div class="form-group row">
 			<label>画像:</label>
-			<input type="file" class="form-control-file" name="image_path">
+			<input type="file" class="form-control-file" name="image_paths[]" multiple>
 		</div>
 		<input type="hidden" name="question_id" value="{{ $question->id }}">
 		{{ csrf_field() }}

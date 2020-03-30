@@ -14,6 +14,10 @@ use App\Answer;
 
 use App\User;
 
+use Session;
+
+use App\Picture;
+
 use Storage;
 
 class QuestionController extends Controller
@@ -25,22 +29,14 @@ class QuestionController extends Controller
 
 	public function show($id){
 		$question = Question::findOrFail($id);
-		$user_id = $question->user_id;
-		$user = User::find($user_id);
 
-		$answers = Answer::where('question_id', $id)->orderBy('created_at', 'desc')->get();
-		$answers_count = count($answers);
-		$answer_user = array();
-		foreach ($answers as $answer) {
-			$users = User::find($answer->user_id);
-			$answer_user[] = $users;
-		}
-		return view('question.index', ['question' => $question , 'user' => $user , 'answers' => $answers , 'answers_count' => $answers_count , 'answer_user' => $answer_user]);
+		$answers = $question->answers()->orderBy('created_at', 'desc')->get();
+		return view('question.index', ['question' => $question , 'answers' => $answers]);
 	}
 
 	public function search(Request $request)
 	{
-		$keyword = $request->keyword;
+		$keyword = trim($request->keyword);
 		return view('question.search', ['keyword' => $keyword]);
 	}
 
@@ -57,26 +53,27 @@ class QuestionController extends Controller
 		$form = $request->all();
 		$question->user_id = Auth::user()->id;
 
-		if (isset($form['image_path'])) {
-			$path = Storage::disk('s3')->putFile('/',$form['image_path'],'public');
-			$question->image_path = Storage::disk('s3')->url($path);
-		} else {
-			$question->image_path = null;
-		}
-	
 		unset($form['_token']);
-		unset($form['image_path']);
+		unset($form['image_paths']);
 	
 		$question->fill($form);
 		$question->save();
+
+		foreach ($request->file('image_paths') as $index => $e) {
+			$picture = new Picture;
+			$path = Storage::disk('s3')->putFile('/',$e,'public');
+			$picture->image_path = Storage::disk('s3')->url($path);
+			$picture->question_id = $question->id;
+			$picture->save();
+		}
 	
 		return redirect('/question/create')->with('message', '投稿ありがとうございます。');
 	}
 
 	public function list()
 	{
-		$user_id = Auth::user()->id;
-		$questions = Question::where('user_id', $user_id)->orderBy('created_at', 'desc')->paginate(10);
+		$user = Auth::user();
+		$questions = $user->questions()->orderBy('created_at', 'desc')->paginate(10);
 		return view('question.list', [ 'questions' => $questions ]);
 	}
 
@@ -99,16 +96,19 @@ class QuestionController extends Controller
 			$path = Storage::disk('s3')->putFile('/',$question_form['image_path'],'public');
 			$question->image_path = Storage::disk('s3')->url($path);
 			unset($question_form['image_path']);
-		} elseif (isset($request->remove)) {
-			$image = $question->image_path;
-			$image = explode("/", $image);
-			$img = end($image);
+		}
+
+		foreach ($request->remove as $key => $value) {
+			$image = Picture::find($value);
+			$image_path = explode("/", $image->image_path);
+			$img = end($image_path);
 			$disk = Storage::disk('s3');
 			$disk->delete($img);
-			$question->image_path = null;
-			unset($question_form['remove']);
+			$image->delete();
 		}
+
 		unset($question_form['_token']);
+		unset($question_form['remove']);
 		$question->fill($question_form)->save();
 
 		return redirect('/list/questions')->with('questionedit', '投稿を変更しました。');

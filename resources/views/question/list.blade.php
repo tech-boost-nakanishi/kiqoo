@@ -23,33 +23,39 @@
 			<th width="20%">操作</th>
 		</thead>
 		<tbody>
-			@foreach($questions as $question)
-				<tr>
-					<td>{{ $question->created_at->format('Y年m月d日 H:i') }}</td>
-					<td style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><a href="{{ action('QuestionController@show', ['id' => $question->id]) }}">{{ $question->title }}</a></td>
-					<td>
-						<a class="btn btn-info" href="{{ route('question.edit', ['id' => $question->id]) }}">編集</a>
-						<a class="btn btn-danger" href="#" data-toggle="modal" data-target="#deleteModal{{ $question->id }}">削除</a>
-					</td>
-				</tr>
+			@if(count($questions) > 0)
+				@foreach($questions as $question)
+					<tr>
+						<td>{{ $question->created_at->format('Y年m月d日 H:i') }}</td>
+						<td style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><a href="{{ action('QuestionController@show', ['id' => $question->id]) }}">{{ $question->title }}</a></td>
+						<td>
+							<a class="btn btn-info" href="{{ route('question.edit', ['id' => $question->id]) }}">編集</a>
+							<a class="btn btn-danger" href="#" data-toggle="modal" data-target="#deleteModal{{ $question->id }}">削除</a>
+						</td>
+					</tr>
 
-				<div class="modal fade" id="deleteModal{{ $question->id }}" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-			        <div class="modal-dialog">
-			            <div class="modal-content">
-			                <div class="modal-header">
-			                    <h4 class="modal-title" id="myModalLabel">削除確認画面</h4>
-			                </div>
-			                <div class="modal-body">
-			                    <label>本当に削除しますか？</label>
-			                </div>
-			                <div class="modal-footer">
-			                    <a type="button" class="btn btn-default" data-dismiss="modal">閉じる</a>
-			                    <a type="button" class="btn btn-danger" href="{{ action('QuestionController@delete', ['id' => $question->id]) }}">削除</a>
-			                </div>
-			            </div>
-			        </div>
-			    </div>
-			@endforeach
+					<div class="modal fade" id="deleteModal{{ $question->id }}" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+				        <div class="modal-dialog">
+				            <div class="modal-content">
+				                <div class="modal-header">
+				                    <h4 class="modal-title" id="myModalLabel">削除確認画面</h4>
+				                </div>
+				                <div class="modal-body">
+				                    <label>本当に削除しますか？</label>
+				                </div>
+				                <div class="modal-footer">
+				                    <a type="button" class="btn btn-default" data-dismiss="modal">閉じる</a>
+				                    <a type="button" class="btn btn-danger" href="{{ action('QuestionController@delete', ['id' => $question->id]) }}">削除</a>
+				                </div>
+				            </div>
+				        </div>
+				    </div>
+				@endforeach
+			@else
+				<span>
+					質問がありません。
+				</span>
+			@endif
 		</tbody>
 	</table>
 

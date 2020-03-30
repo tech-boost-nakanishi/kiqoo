@@ -30,7 +30,7 @@
 		</div>
 		<div class="form-group row">
 			<label>画像:</label>
-			<input type="file" class="form-control-file" name="image_path">
+			<input type="file" class="form-control-file" name="image_paths[]" multiple>
 		</div>
 		{{ csrf_field() }}
 		<input type="submit" class="btn btn-primary" value="投稿">

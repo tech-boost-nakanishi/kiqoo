@@ -12,4 +12,19 @@ class Answer extends Model
         'question_id' => 'required',
         'body' => 'required|max:1000',
     );
+
+    public function pictures()
+	{
+		return $this->hasMany("App\Picture");
+	}
+
+    public function user()
+	{
+		return $this->belongsTo("App\User");
+	}
+
+	public function question()
+	{
+		return $this->belongsTo("App\Question");
+	}
 }

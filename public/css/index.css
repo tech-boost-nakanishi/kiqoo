@@ -193,7 +193,6 @@ header form:after {
 .content label {
 	font-weight: bold;
 	font-size: 18px;
-	margin: 0 auto;
 }
 
 .search-question-frame {
@@ -348,7 +347,7 @@ header form:after {
 	font-size: 12px;
 }
 
-.answer-display-frame-body {
+.answer-display-frame-right {
 	float: left;
 	width: 545px;
 	padding-left: 15px;
@@ -358,6 +357,30 @@ header form:after {
 	clear: both;
 	display: block;
 	content: " ";
+}
+
+.remove-image {
+	margin: 0;
+	display: inline-block;
+}
+
+.remove-image img {
+	position: relative;
+	margin-right: 10px;
+	border: 3px solid transparent;
+}
+
+.remove-image input[type="checkbox"] {
+	display: none;
+}
+
+.remove-image img:hover {
+	opacity: 0.8;
+}
+
+.remove-image input[type="checkbox"]:checked + img {
+	border: 3px solid #ff0000;
+	opacity: 0.6
 }
 
 footer {

@@ -2,6 +2,7 @@
 @section('title', '「'.$keyword.'」の検索結果 - kiqoo')
 
 @include('layout.header')
+@section('keyword', 'keyword')
 @include('layout.sidebar')
 
 @section('content')

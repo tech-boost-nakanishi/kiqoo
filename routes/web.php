@@ -17,7 +17,7 @@ Route::get('/logout', 'HomeController@logout');
 
 Route::get('/questions/{id}', 'QuestionController@show');
 
-Route::get('/search', 'QuestionController@search');
+Route::get('/question/search', 'QuestionController@search');
 
 Route::group(['middleware' => 'auth'], function() {
 	Route::get('/question/create', 'QuestionController@add');

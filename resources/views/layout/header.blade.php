@@ -3,7 +3,11 @@
     <header>
        <h1><a href=" {{ url('/') }}">kiqoo</a></h1>
         <form action="{{ action('QuestionController@search') }}" method="get" enctype="multipart/form-data">
-            <input type="text" class="form-control" name="keyword" value="" placeholder="キーワードで検索">
+            @if(strpos(url()->current(), '/question/search') != false)
+                <input type="text" class="form-control" name="keyword" value="{{ $keyword }}" placeholder="キーワードで検索">
+            @else
+                <input type="text" class="form-control" name="keyword" value="" placeholder="キーワードで検索">
+            @endif
             {{ csrf_field() }}
             <input type="submit" class="btn btn-primary" value="検索">
         </form>
