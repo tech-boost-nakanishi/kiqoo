@@ -59,12 +59,14 @@ class QuestionController extends Controller
 		$question->fill($form);
 		$question->save();
 
-		foreach ($request->file('image_paths') as $index => $e) {
-			$picture = new Picture;
-			$path = Storage::disk('s3')->putFile('/',$e,'public');
-			$picture->image_path = Storage::disk('s3')->url($path);
-			$picture->question_id = $question->id;
-			$picture->save();
+		if(!empty($request->file('image_paths'))){
+			foreach ($request->file('image_paths') as $index => $e) {
+				$picture = new Picture;
+				$path = Storage::disk('s3')->putFile('/',$e,'public');
+				$picture->image_path = Storage::disk('s3')->url($path);
+				$picture->question_id = $question->id;
+				$picture->save();
+			}
 		}
 	
 		return redirect('/question/create')->with('message', '投稿ありがとうございます。');
@@ -92,24 +94,32 @@ class QuestionController extends Controller
 
 		$question = Question::find($request->id);
 		$question_form = $request->all();
-		if (isset($question_form['image_path'])) {
-			$path = Storage::disk('s3')->putFile('/',$question_form['image_path'],'public');
-			$question->image_path = Storage::disk('s3')->url($path);
-			unset($question_form['image_path']);
-		}
-
-		foreach ($request->remove as $key => $value) {
-			$image = Picture::find($value);
-			$image_path = explode("/", $image->image_path);
-			$img = end($image_path);
-			$disk = Storage::disk('s3');
-			$disk->delete($img);
-			$image->delete();
-		}
 
 		unset($question_form['_token']);
+		unset($question_form['image_paths']);
 		unset($question_form['remove']);
 		$question->fill($question_form)->save();
+
+		if(!empty($request->file('image_paths'))){
+			foreach ($request->file('image_paths') as $index => $e) {
+				$picture = new Picture;
+				$path = Storage::disk('s3')->putFile('/',$e,'public');
+				$picture->image_path = Storage::disk('s3')->url($path);
+				$picture->question_id = $question->id;
+				$picture->save();
+			}
+		}
+
+		if(!empty($request->remove)){
+			foreach ($request->remove as $key => $value) {
+				$image = Picture::find($value);
+				$image_path = explode("/", $image->image_path);
+				$img = end($image_path);
+				$disk = Storage::disk('s3');
+				$disk->delete($img);
+				$image->delete();
+			}
+		}
 
 		return redirect('/list/questions')->with('questionedit', '投稿を変更しました。');
 	}
