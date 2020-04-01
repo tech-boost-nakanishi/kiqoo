@@ -362,12 +362,21 @@ header form:after {
 .remove-image {
 	margin: 0;
 	display: inline-block;
+	position: relative;
 }
 
 .remove-image img {
-	position: relative;
 	margin-right: 10px;
 	border: 3px solid transparent;
+}
+
+.remove-image i {
+	display: none;
+	position: absolute;
+	right: 15px;
+	bottom: 5px;
+	color: #ff0000;
+	font-size: 22px;
 }
 
 .remove-image input[type="checkbox"] {
@@ -381,6 +390,10 @@ header form:after {
 .remove-image input[type="checkbox"]:checked + img {
 	border: 3px solid #ff0000;
 	opacity: 0.6
+}
+
+.remove-image input[type="checkbox"]:checked ~ i {
+	display: block;
 }
 
 footer {

@@ -66,9 +66,10 @@ class AnswerController extends Controller
 		if($answer->user_id != Auth::user()->id){
 			abort(404);
 		}
-		$question = Question::findOrFail($answer->question_id);
-		$user = User::findOrFail($question->user_id);
-		return view('answer.edit', ['answer' => $answer , 'question' => $question , 'user' => $user]);
+		// $question = Question::findOrFail($answer->question_id);
+		// $user = User::findOrFail($question->user_id);
+		//dd($answer->question());
+		return view('answer.edit', ['answer' => $answer]);
 	}
 
 	public function update(Request $request)

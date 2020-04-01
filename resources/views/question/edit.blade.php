@@ -36,6 +36,7 @@
 					<label for="removeimg{{ $pic->id }}" class="remove-image">
 						<input type="checkbox" name="remove[]" value="{{ $pic->id }}" id="removeimg{{ $pic->id }}" />
 						<img src="{{ $pic->image_path }}" height="150">
+						<i class="fas fa-check"></i>
 					</label>
 				@endforeach
 			@else

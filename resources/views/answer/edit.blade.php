@@ -13,40 +13,44 @@
 		<div class="alert alert-success" role="alert" style="width: 100%;">{{ session('message') }}</div>
 	@endif
 
-	<a href="#" class="btn btn-primary question-btn" data-toggle="modal" data-target="#questionModal">質問を見る</a>
+	@if(!empty($answer->question))
+		<a href="#" class="btn btn-primary question-btn" data-toggle="modal" data-target="#questionModal">質問を見る</a>
 
-	<div class="modal fade" id="questionModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content" style="width: 760px; height: 500px; margin-left: -130px;">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">{{ \Str::limit($question->title, 10) }}</h4>
-                </div>
-                <div class="modal-body" style="overflow: scroll;">
-                    <div class="question-display-frame">
-						<div class="question-display-frame-left">
-							<p class="profile-image" style="width: 45px; height: 45px; background-image: url('{{ $user->image_path }}');"></p>
-							<p><a href="#">{{ $user->name }}</a></p>
-							<div class="question-display-frame-date">
-								<p>投稿:{{ $question->created_at->format('Y年m月d日 H:i') }}</p>
-								@if($question->created_at != $question->updated_at)
-									<p>更新:{{ $question->updated_at->format('Y年m月d日 H:i') }}</p>
-								@endif
+		<div class="modal fade" id="questionModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+	        <div class="modal-dialog">
+	            <div class="modal-content" style="width: 760px; height: 500px; margin-left: -130px;">
+	                <div class="modal-header">
+	                    <h4 class="modal-title" id="myModalLabel">{{ \Str::limit($answer->question->title, 10) }}</h4>
+	                </div>
+	                <div class="modal-body" style="overflow: scroll;">
+	                    <div class="question-display-frame">
+							<div class="question-display-frame-left">
+								<p class="profile-image" style="width: 45px; height: 45px; background-image: url('{{ $answer->question->user->image_path }}');"></p>
+								<p><a href="#">{{ $answer->question->user->name }}</a></p>
+								<div class="question-display-frame-date">
+									<p>投稿:{{ $answer->question->created_at->format('Y年m月d日 H:i') }}</p>
+									@if($answer->question->created_at != $answer->question->updated_at)
+										<p>更新:{{ $answer->question->updated_at->format('Y年m月d日 H:i') }}</p>
+									@endif
+								</div>
 							</div>
+							<h2 class="question-display-frame-title">{{ $answer->question->title }}</h2>
+							<hr style="clear: both;">
+							<p class="question-display-frame-body">{{ $answer->question->body }}</p>
+							@foreach($answer->question->pictures as $picture)
+								<img src="{{ $picture->image_path }}" alt="" width="300">
+							@endforeach
 						</div>
-						<h2 class="question-display-frame-title">{{ $question->title }}</h2>
-						<hr style="clear: both;">
-						<p class="question-display-frame-body">{{ $question->body }}</p>
-						@foreach($question->pictures as $picture)
-							<img src="{{ $picture->image_path }}" alt="" width="300">
-						@endforeach
-					</div>
-                </div>
-                <div class="modal-footer">
-                    <a type="button" class="btn btn-default" data-dismiss="modal">閉じる</a>
-                </div>
-            </div>
-        </div>
-    </div>
+	                </div>
+	                <div class="modal-footer">
+	                    <a type="button" class="btn btn-default" data-dismiss="modal">閉じる</a>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	@else
+		<p style="text-align: center; font-weight: bold; font-size: 20px;">質問は削除されました。</p>
+	@endif
 
 	<form action="{{ action('AnswerController@update') }}" method="post" enctype="multipart/form-data">
 		<div class="form-group row">
@@ -68,6 +72,7 @@
 					<label for="removeimg{{ $pic->id }}" class="remove-image">
 						<input type="checkbox" name="remove[]" value="{{ $pic->id }}" id="removeimg{{ $pic->id }}" />
 						<img src="{{ $pic->image_path }}" height="150">
+						<i class="fas fa-check"></i>
 					</label>
 				@endforeach
 			@else
@@ -75,7 +80,9 @@
 			@endif
 		</div>
 		<input type="hidden" name="id" value="{{ $answer->id }}">
-		<input type="hidden" name="question_id" value="{{ $question->id }}">
+		@if(!empty($answer->question))
+			<input type="hidden" name="question_id" value="{{ $answer->question->id }}">
+		@endif
 		{{ csrf_field() }}
 		<input type="submit" class="btn btn-primary" value="更新">
 	</form>
