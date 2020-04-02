@@ -30,6 +30,8 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::post('/answer/create', 'AnswerController@create');
 	Route::get('/answer/edit/{id}', 'AnswerController@edit')->name('answer.edit');
 	Route::post('/answer/edit', 'AnswerController@update');
+	Route::get('/answer/review/{id}', 'ReviewController@add');
+	Route::post('/answer/review', 'ReviewController@update');
 	Route::get('/list/questions', 'QuestionController@list');
 	Route::get('/list/answers', 'AnswerController@list');
 });

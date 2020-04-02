@@ -14,6 +14,8 @@ use App\User;
 
 use App\Picture;
 
+use App\Review;
+
 use Storage;
 
 class AnswerController extends Controller
@@ -49,6 +51,14 @@ class AnswerController extends Controller
 				$picture->save();
 			}
 		}
+
+		if(!empty($request->question_user_id)){
+			$review = new Review;
+			$review->answer_id = $answer->id;
+			$review->question_user_id = $request->question_user_id;
+			$review->save();
+		}
+
 	
 		return redirect('/answer/create/'.$answer->question_id)->with('message', '回答ありがとうございます。');
     }
@@ -66,9 +76,6 @@ class AnswerController extends Controller
 		if($answer->user_id != Auth::user()->id){
 			abort(404);
 		}
-		// $question = Question::findOrFail($answer->question_id);
-		// $user = User::findOrFail($question->user_id);
-		//dd($answer->question());
 		return view('answer.edit', ['answer' => $answer]);
 	}
 

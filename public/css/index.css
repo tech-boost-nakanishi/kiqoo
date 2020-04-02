@@ -1,3 +1,7 @@
+html {
+	scroll-behavior: smooth;
+}
+
 body {
 	margin: 0;
 	padding: 0;
@@ -101,7 +105,7 @@ header form:after {
 .wrapper {
 	width: 960px;
 	margin: 30px auto;
-	min-height: calc(100vh - 100px - 60px - 60px);
+	min-height: calc(100vh - 70px - 60px - 60px);
 }
 
 .sidebar {
@@ -249,7 +253,7 @@ header form:after {
 
 .auth-area {
 	background-color: #fff;
-	min-height: calc(100vh - 100px - 120px);
+	min-height: calc(100vh - 70px - 120px);
 }
 
 .middle {
@@ -396,16 +400,75 @@ header form:after {
 	display: block;
 }
 
+.review-area {
+	margin: 20px auto;
+	width: 500px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.review-area input[type="radio"] {
+	display: none;
+}
+
+.review-area label {
+	width: 60px;
+	height: 60px;
+	border: 3px solid #2ECCFA;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 22px;
+}
+
+.review-area label:hover {
+	cursor: pointer;
+	border-color: #00ffff;
+}
+
+.review-area input[type="radio"]:checked + label {
+	border-color: #00ff00;
+}
+
 footer {
 	clear: both;
 	width: 100%;
-	height: 100px;
+	height: 70px;
 	text-align: center;
-	line-height: 100px;
+	line-height: 70px;
 	color: #fff;
-	background-color: #000;
+	background-color: #555;
 }
 
 footer span {
 	font-size: 20px;
+}
+
+.pageTop {
+	position: fixed;
+	right: 20px;
+	bottom: 20px;
+	display: flex;
+	justify-content:
+	center;align-items: center;
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	background-color: #000;
+	opacity: 0.8;
+}
+
+.arrow {
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	border-top: 3px solid #fff;
+	border-right: 3px solid #fff;
+	transform: rotate(-45deg);
+	margin-top: 5px;
+}
+
+.pageTop:hover {
+	opacity: 0.6;
 }
