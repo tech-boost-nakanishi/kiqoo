@@ -33,7 +33,7 @@
 		</div>
 
 		@yield('footer')
-		<a href="#" class="pageTop">
+		<a href="#top" class="pageTop">
 			<span class="arrow"></span>
 		</a>
     </body>

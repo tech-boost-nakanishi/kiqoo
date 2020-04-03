@@ -9,9 +9,12 @@
 <div class="content">
 	<h2 class="content-header">回答評価画面</h2>
 
-	@if(session('message'))
-		<div class="alert alert-success" role="alert" style="width: 100%;">{{ session('message') }}</div>
+	@if(session('review'))
+		<div class="alert alert-success" role="alert" style="width: 100%;">{{ session('review') }}</div>
 	@endif
+
+	<h3 style="text-align: center;">質問文</h3>
+	<hr style="margin: 0;">
 
 	@if(!empty($answer->question))
 		<a href="#" class="btn btn-primary question-btn" data-toggle="modal" data-target="#questionModal">質問を見る</a>
@@ -52,6 +55,9 @@
 		<p style="text-align: center; font-weight: bold; font-size: 20px;">質問は削除済です。</p>
 	@endif
 
+	<h3 style="text-align: center;">回答文</h3>
+	<hr style="margin: 0;">
+
 	@if(!empty($answer))
 		<div class="answer-display-frame">
 			<div class="answer-display-frame-left">
@@ -72,6 +78,9 @@
 			</div>
 		</div>
 
+		<h3 style="text-align: center; margin-top: 30px;">評価</h3>
+		<hr style="margin: 0;">
+
 		<form action="{{ action('ReviewController@update') }}" method="post" enctype="multipart/form-data">
 			<div class="form-group row review-area">
 				<input type="radio" name="review" id="review0" value="0">
@@ -89,6 +98,7 @@
 				@if(!empty($answer))
 					<input type="hidden" name="answer_id" value="{{ $answer->id }}">
 				@endif
+				<input type="hidden" name="question_user_id" value="{{ Auth::user()->id }}">
 			</div>
 			{{ csrf_field() }}
 			<input type="submit" class="btn btn-primary" value="評価">
