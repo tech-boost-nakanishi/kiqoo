@@ -9,10 +9,6 @@
 <div class="content">
 	<h2 class="content-header">回答投稿画面</h2>
 
-	@if(session('message'))
-		<div class="alert alert-success" role="alert" style="width: 100%;">{{ session('message') }}</div>
-	@endif
-
 	<a href="#" class="btn btn-primary question-btn" data-toggle="modal" data-target="#questionModal">質問を見る</a>
 
 	<div class="modal fade" id="questionModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
@@ -61,6 +57,9 @@
 			<input type="file" class="form-control-file" name="image_paths[]" multiple>
 		</div>
 		<input type="hidden" name="question_id" value="{{ $question->id }}">
+		@if(!empty($question))
+			<input type="hidden" name="question_user_id" value="{{ $question->user_id }}">
+		@endif
 		{{ csrf_field() }}
 		<input type="submit" class="btn btn-primary" value="投稿">
 	</form>

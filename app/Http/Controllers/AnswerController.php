@@ -35,11 +35,9 @@ class AnswerController extends Controller
 		$answer = new Answer;
 		$form = $request->all();
 		$answer->user_id = Auth::user()->id;
-
-		unset($form['_token']);
-		unset($form['image_paths']);
+		$answer->question_id = $request->question_id;
+		$answer->body = $request->body;
 	
-		$answer->fill($form);
 		$answer->save();
 
 		if(!empty($request->file('image_paths'))){
@@ -52,6 +50,9 @@ class AnswerController extends Controller
 			}
 		}
 
+		unset($form['_token']);
+		unset($form['image_paths']);
+
 		if(!empty($request->question_user_id)){
 			$review = new Review;
 			$review->answer_id = $answer->id;
@@ -59,8 +60,7 @@ class AnswerController extends Controller
 			$review->save();
 		}
 
-	
-		return redirect('/answer/create/'.$answer->question_id)->with('message', '回答ありがとうございます。');
+		return redirect('/list/answers')->with('message', '回答ありがとうございます。');
     }
 
     public function list()

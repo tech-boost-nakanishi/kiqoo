@@ -19,6 +19,12 @@ Route::get('/questions/{id}', 'QuestionController@show');
 
 Route::get('/question/search', 'QuestionController@search');
 
+Route::get('/sample/mailable/preview', function () {
+  return new App\Mail\ReviewMail();
+});
+
+Route::get('/sample/mailable/send', 'MailController@reviewmail');
+
 Route::group(['middleware' => 'auth'], function() {
 	Route::get('/question/create', 'QuestionController@add');
 	Route::post('/question/create', 'QuestionController@create');

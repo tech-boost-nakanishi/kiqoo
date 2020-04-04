@@ -16,6 +16,10 @@
 		<div class="alert alert-success" role="alert" style="width: 100%;">{{ session('answerdelete') }}</div>
 	@endif
 
+	@if(session('message'))
+		<div class="alert alert-success" role="alert" style="width: 100%;">{{ session('message') }}</div>
+	@endif
+
 	<table class="table table-striped" style="table-layout: fixed;">
 		<thead>
 			<th width="25%">投稿日時</th>
