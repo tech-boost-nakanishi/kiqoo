@@ -1,5 +1,5 @@
 @extends('layout.common')
-@section('title', 'kiqoo')
+@section('title', $appname)
 
 @include('layout.header')
            
@@ -16,6 +16,10 @@
 
     <h2 class="content-header">新着一覧</h2>
 
+    @if(count($questions) == 0)
+        <p style="text-align: center; font-size: 18px; font-weight: bold;">投稿がありません。</p>
+    @endif
+
     @foreach($questions as $question)
         <div class="search-question-frame">
             <h3 class="search-question-frame-title">{{ $question->title }}</h3>
@@ -30,4 +34,4 @@
     </div>
 </div>
 @endsection
-        @include('layout.footer')
+@include('layout.footer')

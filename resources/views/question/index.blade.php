@@ -1,5 +1,5 @@
 @extends('layout.common')
-@section('title', \Str::limit($question->title, 20) . ' - kiqoo')
+@section('title', \Str::limit($question->title, 20) . ' - ' . $appname)
 
 @include('layout.header')
 

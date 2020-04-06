@@ -129,8 +129,8 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'review' => [
+            'required' => ':attribute を選択してください。',
         ],
     ],
 
@@ -149,7 +149,8 @@ return [
         'name' => 'ニックネーム',
         'password' => 'パスワード',
         'title' => 'タイトル',
-        'body' => '本文'
+        'body' => '本文',
+        'review' => '評価',
     ],
 
 ];

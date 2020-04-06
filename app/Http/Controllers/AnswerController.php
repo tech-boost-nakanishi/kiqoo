@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ReviewMail;
+
 use App\Question;
 
 use App\Answer;
@@ -59,6 +62,15 @@ class AnswerController extends Controller
 			$review->question_user_id = $request->question_user_id;
 			$review->save();
 		}
+		$user = User::find($request->question_user_id);
+		$question = $answer->question()->first();
+		Mail::to($user->email)
+		->send(new ReviewMail(
+			$name = $user->name,
+			$question_id = $question->id,
+			$question_title = $question->title,
+			$answer_id = $answer->id
+		));
 
 		return redirect('/list/answers')->with('message', '回答ありがとうございます。');
     }

@@ -26,6 +26,7 @@ class QuestionController extends Controller
 {
 	public function index(Request $request){
 		$questions = Question::orderBy('created_at', 'desc')->paginate(10);
+		//dd($questions);
 		return view('top', [ 'questions' => $questions ]);
 	}
 
@@ -39,8 +40,12 @@ class QuestionController extends Controller
 	public function search(Request $request)
 	{
 		$keyword = trim($request->keyword);
-		$question = Question::orderBy('created_at', 'desc')->get();
+		$keyword = mb_convert_kana($keyword, 's');
+		$question = Question::all();
+		$result = [];
 		$questions = [];
+		$from = 0;
+		$to = 0;
 		if(!empty($keyword)){
 			$keyword = explode(" ", $keyword);
 			foreach ($keyword as $key => $value) {
@@ -49,19 +54,31 @@ class QuestionController extends Controller
 						if(preg_match("/{$value}/ium", $ques->body) > 0){
 							$ques->title = preg_replace("/" . preg_quote($value) . "/ium", "<span style=\"font-weight: bold;\">\\0</span>", $ques->title);
 							$ques->body = preg_replace("/" . preg_quote($value) . "/ium", "<span style=\"font-weight: bold;\">\\0</span>", $ques->body);
-							$questions[] = $ques;
+							$result[] = $ques;
 						}else{
 							$ques->title = preg_replace("/" . preg_quote($value) . "/ium", "<span style=\"font-weight: bold;\">\\0</span>", $ques->title);
-							$questions[] = $ques;
+							$result[] = $ques;
 						}
 					}else{
 						if(preg_match("/{$value}/ium", $ques->body) > 0){
 							$ques->body = preg_replace("/" . preg_quote($value) . "/ium", "<span style=\"font-weight: bold;\">\\0</span>", $ques->body);
-							$questions[] = $ques;
+							$result[] = $ques;
 						}
 					}
 				}
 			}
+			$id = [];
+			foreach ($result as $key => $value) {
+				if(!in_array($value['id'], $id)){
+					$id[] = $value['id'];
+					$questions[] = $value;
+				}
+			}
+			$sort = [];
+			foreach ($questions as $key => $value) {
+				$sort[$key] = $value['created_at'];
+			}
+			array_multisort($sort, SORT_DESC, $questions);
 			if(count($questions) > 0){
 				$PerPage = 10;   //1ページあたりの件数
 				$displayData = array_chunk($questions, $PerPage);
@@ -74,13 +91,25 @@ class QuestionController extends Controller
 		            $currentPageNo,
 		            array('path' => $request->url())
 		        );
+
+		        if($request->input('page', 1) * $PerPage - $PerPage + 1 < count($questions)){
+		        	$from = $request->input('page', 1) * $PerPage - $PerPage + 1;
+		        }else{
+		        	$from = count($questions);
+		        }
+
+		        if($from + $PerPage - 1 < count($questions)){
+		        	$to = $from + $PerPage - 1;
+		        }else{
+		        	$to = count($questions);
+		        }
 			}else{
 				$pagination = 0;
 			}
 		}else{
 			$pagination = 0;
 		}
-		return view('question.search', ['keyword' => $request->keyword , 'questions' => $questions , 'pagination' => $pagination]);
+		return view('question.search', ['keyword' => $request->keyword , 'questions' => $questions , 'pagination' => $pagination , 'from' => $from , 'to' => $to]);
 	}
 
 	public function add()

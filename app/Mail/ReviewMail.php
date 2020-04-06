@@ -12,17 +12,19 @@ class ReviewMail extends Mailable
     use Queueable, SerializesModels;
 
     protected $title;
-    protected $text;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($name='テスト', $text='テストです')
+    public function __construct($name, $question_id, $question_title, $answer_id)
     {
-        $this->title = sprintf('%sさん、ありがとうございます。', $name);
-        $this->text = $text;
+        $this->name = $name;
+        $this->title = sprintf('%sさんの質問に回答がありました。', $name);
+        $this->question_id = $question_id;
+        $this->question_title = $question_title;
+        $this->answer_id = $answer_id;
     }
 
     /**
@@ -36,7 +38,10 @@ class ReviewMail extends Mailable
                     ->text('emails.review_email_plain')
                     ->subject($this->title)
                     ->with([
-                        'text' => $this->text,
+                        'name' => $this->name,
+                        'question_id' => $this->question_id,
+                        'question_title' => $this->question_title,
+                        'answer_id' => $this->answer_id,
                       ]);
     }
 }

@@ -17,11 +17,10 @@ class ReviewController extends Controller
     public function add($id)
     {
     	$answer = Answer::findOrFail($id);
-    	if(!empty($answer->question()->user_id)){
-	    	if(Auth::user()->id != $answer->question()->user_id){
-	    		abort(404);
-	    	}
-	    }
+    	$question = $answer->question()->first();
+    	if(Auth::user()->id != $question->user_id){
+    		abort(404);
+    	}
 
     	return view('review.create', ['answer' => $answer]);
     }
@@ -30,8 +29,9 @@ class ReviewController extends Controller
     {
     	$this->validate($request, Review::$rules);
 
-    	$review = Review::where('answer_id', $request->answer_id);
-    	dd($review);
+    	$review = Review::where('answer_id', $request->answer_id)->first();
+    	$review->question_user_id = $request->question_user_id;
+    	$review->answer_id = $request->answer_id;
     	$review->review = $request->review;
     	$form = $request->all();
 

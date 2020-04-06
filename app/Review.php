@@ -11,5 +11,6 @@ class Review extends Model
     public static $rules = array(
         'question_user_id' => 'required',
         'answer_id' => 'required',
+        'review' => 'required',
     );
 }

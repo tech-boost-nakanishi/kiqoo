@@ -1,5 +1,5 @@
 @extends('layout.common')
-@section('title', 'ログイン - kiqoo')
+@section('title', 'ログイン - ' . $appname)
 
 @include('layout.header')
 

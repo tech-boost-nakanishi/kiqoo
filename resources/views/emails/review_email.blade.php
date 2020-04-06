@@ -1,43 +1,25 @@
 <!DOCTYPE html>
-<html lang="ja">
-<style>
-  body {
-    background-color: #fff;
-  }
-  h1 {
-    font-size: 16px;
-    color: #ff6666;
-  }
-  #button {
-    width: 200px;
-    text-align: center;
-  }
-  #button a {
-    padding: 10px 20px;
-    display: block;
-    border: 1px solid #2a88bd;
-    background-color: #000;
-    color: #2a88bd;
-    text-decoration: none;
-    box-shadow: 2px 2px 3px #f5deb3;
-  }
-  #button a:hover {
-    background-color: #2a88bd;
-    color: #000;
-  }
-</style>
-<body>
-<h1>
-  2回目の送信です。
-</h1>
-<p>
-  A sample notification has been sent.
-</p>
-<p>
-  {{$text}}
-</p>
-<p id="button">
-  <a href="https://www.google.co.jp">リンクのテスト</a>
-</p>
-</body>
+<html>
+    <body>
+        <p>
+            {{ $name }}さん、いつもご利用いただき誠にありがとうございます。
+            <br>
+            <br>
+            先日ご質問いただいた
+            <br>
+            「<a href="{{ action('QuestionController@show', ['id' => $question_id]) }}">{{ $question_title }}</a>」に
+            <br>
+            回答が投稿されました。
+            <br>
+            是非回答をご覧いただき評価の方していただければ幸いです。
+        </p>
+        <br>
+        <p style="margin: 0;">回答評価ページ</p>
+        <p style="margin: 0;"><a href="{{ action('ReviewController@add', ['id' => $answer_id]) }}">{{ action('ReviewController@add', ['id' => $answer_id]) }}</a></p>
+        <br>
+        何卒、よろしくお願い申し上げます。
+        <br>
+        <br>
+        <p><a href="{{ url('/') }}">{{ $appname }}</a></p>
+    </body>
 </html>

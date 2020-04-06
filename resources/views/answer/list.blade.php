@@ -1,5 +1,5 @@
 @extends('layout.common')
-@section('title', '回答一覧 - kiqoo')
+@section('title', '回答一覧 - ' . $appname)
 
 @include('layout.header')
 @include('layout.sidebar')

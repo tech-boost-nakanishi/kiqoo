@@ -1,7 +1,13 @@
-Sample Notification!
+{{ $name }}さん、いつもご利用いただき誠にありがとうございます。
 
-A sample notification has been sent.
+先日ご質問いただいた
+「{{ $question_title }}」に
+回答が投稿されました。
+是非回答をご覧いただき評価の方していただければ幸いです。
 
-{{$text}}
+回答評価ページ
+{{ action('ReviewController@add', ['id' => $answer_id]) }}
 
-https://www.google.co.jp
+何卒、よろしくお願い申し上げます。
+
+{{ $appname }}

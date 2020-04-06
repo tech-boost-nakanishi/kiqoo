@@ -1,5 +1,5 @@
 @extends('layout.common')
-@section('title', '「'.$keyword.'」の検索結果 - kiqoo')
+@section('title', '「'.$keyword.'」の検索結果 - ' . $appname)
 
 @include('layout.header')
 @include('layout.sidebar')
@@ -7,9 +7,10 @@
 @section('content')
 <div class="content">
 	@if(!empty($keyword))
-		<h2 style="text-align: center; margin-top: 10px; margin-bottom: 20px;">「{{ $keyword }}」の検索結果<br>
-		（{{ count($questions) }}件）
-		</h2>
+		<h2 style="text-align: center; margin-top: 10px; margin-bottom: 20px; font-size: 26px;">「{{ $keyword }}」の検索結果</h2>
+
+		<p style="margin: 0; text-align: right; font-weight: bold; font-size: 16px;">全{{ count($questions) }}件中 {{ $from }}件〜{{ $to }}件を表示</p>
+		<hr style="margin-top: 0;">
 
 		@if(count($questions) > 0)
 			@foreach($pagination as $question)
@@ -25,7 +26,7 @@
 		    	{{ $pagination->appends([ 'keyword' => $keyword ])->links() }}
 			</div>
 		@else
-			<p style="text-align: center; font-weight: bold; font-size: 18px;">一致するデータがありません。</p>
+			<p style="text-align: center; font-weight: bold; font-size: 18px;">一致する質問はありません。</p>
 		@endif
 	@else
 		<h2 style="text-align: center; margin-top: 10px;">

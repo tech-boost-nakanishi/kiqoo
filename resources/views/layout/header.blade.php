@@ -1,7 +1,7 @@
 @section('header')
 <div class="header-bar">
     <header>
-       <h1><a href=" {{ url('/') }}">kiqoo</a></h1>
+       <h1><a href=" {{ url('/') }}">{{ $appname }}</a></h1>
         <form action="{{ action('QuestionController@search') }}" method="get" enctype="multipart/form-data">
             @if(strpos(url()->current(), '/question/search') != false)
                 <input type="text" class="form-control" name="keyword" value="{{ $keyword }}" placeholder="キーワードで検索">
