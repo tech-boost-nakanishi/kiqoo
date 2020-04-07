@@ -431,6 +431,44 @@ header form:after {
 	border-color: #0000ff;
 }
 
+.profile-area-top-right p {
+	margin: 0;
+}
+
+.review-frame {
+	position: relative;
+	font-size: 24px;
+	letter-spacing: -1em;
+}
+
+.review-frame i {
+	display: inline-block;
+	letter-spacing: 0;
+}
+
+.review-frame-front {
+	position: absolute;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+	white-space: nowrap;
+	color: #ffcc33;
+}
+
+.review-frame-back {
+	color: #ccc;
+}
+
+.profile-area-bottom div {
+	margin: 30px auto;
+	margin-bottom: 5px;
+}
+
+.profile-area-bottom p {
+	font-size: 18px;
+	margin: 5px;
+}
+
 footer {
 	clear: both;
 	width: 100%;

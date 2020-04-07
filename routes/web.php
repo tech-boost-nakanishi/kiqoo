@@ -19,9 +19,15 @@ Route::get('/questions/{id}', 'QuestionController@show');
 
 Route::get('/question/search', 'QuestionController@search');
 
-Route::get('/sample/mailable/preview', function () {
-  return new App\Mail\ReviewMail($name='テスト', $question_id=1, $question_title='質問タイトル', $answer_id=1, $review_url='評価url');
-});
+Route::get('/profile/show/{id}', 'ProfileController@show');
+
+Route::get('/list/questions/{id}', 'QuestionController@list');
+	
+Route::get('/list/answers/{id}', 'AnswerController@list');
+
+// Route::get('/sample/mailable/preview', function () {
+//   return new App\Mail\ReviewMail($name='テスト', $question_id=1, $question_title='質問タイトル', $answer_id=1, $review_url='評価url');
+// });
 
 //Route::get('/sample/mailable/send', 'MailController@reviewmail');
 
@@ -38,8 +44,6 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::post('/answer/edit', 'AnswerController@update');
 	Route::get('/answer/review/{id}', 'ReviewController@add');
 	Route::post('/answer/review', 'ReviewController@update');
-	Route::get('/list/questions', 'QuestionController@list');
-	Route::get('/list/answers', 'AnswerController@list');
 });
 
 Auth::routes();

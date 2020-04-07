@@ -26,10 +26,10 @@
                         <a class="dropdown-item" href="{{ action('QuestionController@add') }}">
                             質問する
                         </a>
-                        <a class="dropdown-item" href="{{ url('list/questions') }}">
+                        <a class="dropdown-item" href="{{ action('QuestionController@list', ['id' => Auth::user()->id]) }}">
                             質問一覧
                         </a>
-                        <a class="dropdown-item" href="{{ url('list/answers') }}">
+                        <a class="dropdown-item" href="{{ action('AnswerController@list', ['id' => Auth::user()->id]) }}">
                             回答一覧
                         </a>
                         <a class="dropdown-item" href="{{ url('logout') }}">

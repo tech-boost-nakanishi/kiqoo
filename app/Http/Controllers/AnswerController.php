@@ -75,11 +75,11 @@ class AnswerController extends Controller
 		return redirect('/list/answers')->with('message', '回答ありがとうございます。');
     }
 
-    public function list()
+    public function list($id)
 	{
-		$user = Auth::user();
+		$user = User::findOrFail($id);
 		$answers = $user->answers()->orderBy('created_at', 'desc')->paginate(10);
-		return view('answer.list', [ 'answers' => $answers ]);
+		return view('answer.list', [ 'answers' => $answers , 'user' => $user ]);
 	}
 
 	public function edit($id)

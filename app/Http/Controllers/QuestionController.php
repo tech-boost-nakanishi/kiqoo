@@ -144,11 +144,11 @@ class QuestionController extends Controller
 		return redirect('/question/create')->with('message', '投稿ありがとうございます。');
 	}
 
-	public function list()
+	public function list($id)
 	{
-		$user = Auth::user();
+		$user = User::findOrFail($id);
 		$questions = $user->questions()->orderBy('created_at', 'desc')->paginate(10);
-		return view('question.list', [ 'questions' => $questions ]);
+		return view('question.list', [ 'questions' => $questions , 'user' => $user ]);
 	}
 
 	public function edit($id)
