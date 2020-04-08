@@ -19,7 +19,7 @@
                 <p style="font-size: 24px; font-weight: bold;">{{ $user->name }} さん</p>
                 <p style="float: left; font-size: 22px; font-weight: bold;">平均評価：</p>
                 <div class="review-frame" style="float: left;">
-                    <div class="review-frame-front" style="width: 90%;">
+                    <div class="review-frame-front" style="width: {{ $review_percent }}%;">
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
@@ -34,7 +34,7 @@
                         <i class="fas fa-star"></i>
                     </div>
                 </div>
-                <p style="float: left; font-size: 24px; font-weight: bold; margin-left: 10px;">5</p>
+                <p style="float: left; font-size: 24px; font-weight: bold; margin-left: 10px;">{{ $review_avg }}</p>
                 <a href="{{ action('QuestionController@list', ['id' => $user->id]) }}" style="font-weight: bold; font-size: 20px;"><p>質問一覧({{ count($user->questions) }}件)</p></a>
                 <a href="{{ action('AnswerController@list', ['id' => $user->id]) }}" style="font-weight: bold; font-size: 20px;"><p>回答一覧({{ count($user->answers) }}件)</p></a>
             </div>

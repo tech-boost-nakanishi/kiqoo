@@ -44,6 +44,8 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::post('/answer/edit', 'AnswerController@update');
 	Route::get('/answer/review/{id}', 'ReviewController@add');
 	Route::post('/answer/review', 'ReviewController@update');
+	Route::get('/profile/edit', 'ProfileController@edit');
+	Route::post('/profile/edit', 'ProfileController@update');
 });
 
 Auth::routes();

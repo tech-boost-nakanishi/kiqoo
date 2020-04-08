@@ -21,7 +21,7 @@
                     <div class="question-display-frame">
 						<div class="question-display-frame-left">
 							<p class="profile-image" style="width: 45px; height: 45px; background-image: url('{{ $question->user->image_path }}');"></p>
-							<p><a href="#">{{ $question->user->name }}</a></p>
+							<p><a href="{{ action('ProfileController@show', ['id' => $question->user->id]) }}">{{ $question->user->name }}</a></p>
 							<div class="question-display-frame-date">
 								<p>投稿:{{ $question->created_at->format('Y年m月d日 H:i') }}</p>
 								@if($question->created_at != $question->updated_at)

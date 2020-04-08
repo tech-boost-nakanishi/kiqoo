@@ -246,7 +246,8 @@ header form:after {
 
 .profile-image {
 	background-position: center;
-	background-size: cover;
+	background-size: contain;
+	background-repeat: no-repeat;
 	border-radius: 50%;
 	display: inline-block;
 }

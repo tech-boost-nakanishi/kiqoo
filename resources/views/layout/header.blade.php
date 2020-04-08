@@ -26,6 +26,9 @@
                         <a class="dropdown-item" href="{{ action('QuestionController@add') }}">
                             質問する
                         </a>
+                        <a class="dropdown-item" href="{{ action('ProfileController@edit') }}" style="font-size: 15px;">
+                            プロフィール編集
+                        </a>
                         <a class="dropdown-item" href="{{ action('QuestionController@list', ['id' => Auth::user()->id]) }}">
                             質問一覧
                         </a>

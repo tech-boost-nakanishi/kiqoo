@@ -23,7 +23,7 @@
 		    @endforeach
 
 		    <div class="d-flex justify-content-center">
-		    	{{ $pagination->appends([ 'keyword' => $keyword ])->links() }}
+		    	{{ $pagination->appends(request()->input())->links() }}
 			</div>
 		@else
 			<p style="text-align: center; font-weight: bold; font-size: 18px;">一致する質問はありません。</p>

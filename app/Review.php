@@ -13,4 +13,9 @@ class Review extends Model
         'answer_id' => 'required',
         'review' => 'required',
     );
+
+    public function answer()
+    {
+    	return $this->belongsTo("App\Answer");
+    }
 }

@@ -26,7 +26,6 @@ class QuestionController extends Controller
 {
 	public function index(Request $request){
 		$questions = Question::orderBy('created_at', 'desc')->paginate(10);
-		//dd($questions);
 		return view('top', [ 'questions' => $questions ]);
 	}
 

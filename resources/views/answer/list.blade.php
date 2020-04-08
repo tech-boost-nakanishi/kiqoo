@@ -24,12 +24,14 @@
 	@if(Auth::user()->id != $user->id)
 		<p class="profile-image" style="float: left; width: 40px; height: 40px; background-image: url('{{ $user->image_path }}');"></p>
 		<p style="float: left; margin-top: 5px; margin-left: 5px; font-size: 20px; font-weight: bold;">{{ $user->name }}さん</p>
+		<p style="float: right; font-size: 18px; margin: 0; padding-top: 20px;"><a href="{{ action('QuestionController@list', ['id' => $user->id]) }}">質問一覧を見る</a></p>
 		<div style="clear: both;"></div>
 	@endif
 	@endauth
 	@guest
 		<p class="profile-image" style="float: left; width: 40px; height: 40px; background-image: url('{{ $user->image_path }}');"></p>
 		<p style="float: left; margin-top: 5px; margin-left: 5px; font-size: 20px; font-weight: bold;">{{ $user->name }}さん</p>
+		<p style="float: right; font-size: 18px; margin: 0; padding-top: 20px;"><a href="{{ action('QuestionController@list', ['id' => $user->id]) }}">質問一覧を見る</a></p>
 		<div style="clear: both;"></div>
 	@endguest
 
@@ -96,7 +98,7 @@
 	</table>
 
 	<div class="d-flex justify-content-center">
-    	{{ $answers->links() }}
+    	{{ $answers->appends(request()->input())->links() }}
 	</div>
 </div>
 @endsection

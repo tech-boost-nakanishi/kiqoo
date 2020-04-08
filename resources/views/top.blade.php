@@ -30,7 +30,7 @@
     @endforeach
 
     <div class="d-flex justify-content-center">
-        {{ $questions->links() }}
+        {{ $questions->appends(request()->input())->links() }}
     </div>
 </div>
 @endsection
