@@ -124,7 +124,7 @@ class AnswerController extends Controller
 			}
 		}
 
-		return redirect('/list/answers')->with('answeredit', '投稿を変更しました。');
+		return redirect('/list/answers/' . Auth::user()->id)->with('answeredit', '投稿を変更しました。');
 	}
 
 	public function delete(Request $request)

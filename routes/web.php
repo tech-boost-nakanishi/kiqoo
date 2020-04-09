@@ -13,6 +13,10 @@
 
 Route::get('/', 'QuestionController@index');
 
+Route::get('/about', function(){
+	return view('about');
+});
+
 Route::get('/logout', 'HomeController@logout');
 
 Route::get('/questions/{id}', 'QuestionController@show');

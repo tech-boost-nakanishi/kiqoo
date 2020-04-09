@@ -70,6 +70,7 @@
                     </form>
                 </div>
             </div>
+            <p style="text-align: center; font-size: 16px;">会員ではない方は<a href="{{ url('register') }}">こちら</a></p>
         </div>
     </div>
 </div>

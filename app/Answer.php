@@ -28,8 +28,8 @@ class Answer extends Model
 		return $this->belongsTo("App\Question");
 	}
 
-	public function reviews()
+	public function review()
 	{
-		return $this->hasMany("App\Review");
+		return $this->hasOne("App\Review");
 	}
 }

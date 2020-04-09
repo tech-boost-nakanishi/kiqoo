@@ -62,7 +62,7 @@
 		<div class="answer-display-frame">
 			<div class="answer-display-frame-left">
 				<p class="profile-image" style="width: 45px; height: 45px; background-image: url('{{ $answer->user->image_path }}');"></p>
-				<p><a href="#">{{ $answer->user->name }}</a></p>
+				<p><a href="{{ action('ProfileController@show', ['id' => $answer->user->id]) }}">{{ $answer->user->name }}</a></p>
 				<div class="answer-display-frame-date">
 					<p>投稿:{{ $answer->created_at->format('Y年m月d日 H:i') }}</p>
 					@if($answer->created_at != $answer->updated_at)

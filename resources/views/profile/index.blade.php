@@ -35,6 +35,7 @@
                     </div>
                 </div>
                 <p style="float: left; font-size: 24px; font-weight: bold; margin-left: 10px;">{{ $review_avg }}</p>
+                <p style="font-weight: bold; font-size: 17px;">(評価件数：{{ $count }}件)</p>
                 <a href="{{ action('QuestionController@list', ['id' => $user->id]) }}" style="font-weight: bold; font-size: 20px;"><p>質問一覧({{ count($user->questions) }}件)</p></a>
                 <a href="{{ action('AnswerController@list', ['id' => $user->id]) }}" style="font-weight: bold; font-size: 20px;"><p>回答一覧({{ count($user->answers) }}件)</p></a>
             </div>

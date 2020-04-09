@@ -20,18 +20,25 @@ class ProfileController extends Controller
     	$answers = $user->answers()->get();
     	$reviews = [];
     	foreach ($answers as $answer) {
-    		$review[] = Review::where('answer_id', $answer->id)->whereNotNull('review')->first();
+            $reviews[] = $answer->review()->first();
     	}
-    	if(empty($reviews)){
+    	if(count($reviews) == 0){
     		$review_avg = 0;
-    	}elseif(count($reviews) == 1){
-    		$review_avg = $reviews[0];
+    		$review_percent = 0;
     	}else{
-    		$review_avg = $reviews->avg();
+    		$sum = 0;
+            $count = 0;
+    		foreach ($reviews as $key => $value) {
+                if(!is_null($value->review)){
+                    $sum += $value->review;
+                    $count++;
+                }
+    		}
+    		$review_avg = round($sum / $count, 1);
+    		$review_percent = round($review_avg / 5 * 100, 1);
     	}
-    	$review_avg = round($review_avg);
-    	$review_percent = round($review_avg / 5 * 100, 1);
-    	return view('profile.index', ['user' => $user , 'review_avg' => $review_avg , 'review_percent' => $review_percent]);
+
+    	return view('profile.index', ['user' => $user , 'review_avg' => $review_avg , 'review_percent' => $review_percent , 'count' => $count]);
     }
 
     public function edit()

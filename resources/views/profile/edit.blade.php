@@ -31,7 +31,7 @@
 			<textarea class="form-control" name="introduction" rows="15">{{ Auth::user()->introduction }}</textarea>
 		</div>
 		{{ csrf_field() }}
-		<input type="submit" class="btn btn-primary" value="投稿">
+		<input type="submit" class="btn btn-primary" value="更新">
 	</form>
 </div>
 @endsection

@@ -192,7 +192,7 @@ class QuestionController extends Controller
 			}
 		}
 
-		return redirect('/list/questions')->with('questionedit', '投稿を変更しました。');
+		return redirect('/list/questions/' . Auth::user()->id)->with('questionedit', '投稿を変更しました。');
 	}
 
 	public function delete(Request $request)

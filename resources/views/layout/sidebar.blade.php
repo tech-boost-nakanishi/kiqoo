@@ -17,7 +17,7 @@
             </ul>
         </li>
         <li>
-            <a href="#">About</a>
+            <a href="{{ url('about') }}">About</a>
         </li>
     </ul>
 </div>
