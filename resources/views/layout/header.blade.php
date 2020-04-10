@@ -35,6 +35,9 @@
                         <a class="dropdown-item" href="{{ action('AnswerController@list', ['id' => Auth::user()->id]) }}">
                             回答一覧
                         </a>
+                        <a class="dropdown-item" href="{{ action('ReviewController@list') }}" style="font-size: 16px;">
+                            未評価回答一覧
+                        </a>
                         <a class="dropdown-item" href="{{ url('logout') }}">
                             ログアウト
                         </a>

@@ -19,11 +19,11 @@
 			<input type="file" class="form-control-file" name="image_path" style="width: 500px; position: absolute; top: 120px; left: 150px;">
 		</div>
 		<div class="form-group row">
-			<label>資格</label><p style="font-weight: bold; font-size: 18px; margin: 0;">（複数ある場合は/で区切ってください。）</p>
+			<label>資格</label><p style="font-weight: bold; font-size: 18px; margin: 0; color: #ff0000;">（複数ある場合は/で区切ってください。）</p>
 			<input type="text" class="form-control" name="qualification" value="{{ Auth::user()->qualification }}">
 		</div>
 		<div class="form-group row">
-			<label>趣味</label><p style="font-weight: bold; font-size: 18px; margin: 0;">（複数ある場合は/で区切ってください。）</p>
+			<label>趣味</label><p style="font-weight: bold; font-size: 18px; margin: 0; color: #ff0000;">（複数ある場合は/で区切ってください。）</p>
 			<input type="text" class="form-control" name="hobby" value="{{ Auth::user()->hobby }}">
 		</div>
 		<div class="form-group row">

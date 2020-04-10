@@ -41,4 +41,14 @@ class ReviewController extends Controller
 
     	return redirect('/answer/review/' . $request->answer_id)->with('review', '評価を受け付けました。');
     }
+
+    public function list()
+    {
+        $unreviews = Review::where('question_user_id', Auth::user()->id)->whereNull('review')->orderBy('created_at', 'desc')->get();
+        $answers = [];
+        foreach ($unreviews as $unreview) {
+            $answers[] = $unreview->answer()->first();
+        }
+        return view('review.list', ['answers' => $answers]);
+    }
 }

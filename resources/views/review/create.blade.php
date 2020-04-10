@@ -13,6 +13,10 @@
 		<div class="alert alert-success" role="alert" style="width: 100%;">{{ session('review') }}</div>
 	@endif
 
+	@if($errors->has('review'))
+		<div class="alert alert-danger" role="alert" style="width: 100%;">{{ $errors->first('review') }}</div>
+	@endif
+
 	<h3 style="text-align: center;">質問文</h3>
 	<hr style="margin: 0;">
 
@@ -29,7 +33,7 @@
 	                    <div class="question-display-frame">
 							<div class="question-display-frame-left">
 								<p class="profile-image" style="width: 45px; height: 45px; background-image: url('{{ $answer->question->user->image_path }}');"></p>
-								<p><a href="#">{{ $answer->question->user->name }}</a></p>
+								<p><a href="{{ action('ProfileController@show', ['id' => $answer->question->user->id]) }}">{{ $answer->question->user->name }}</a></p>
 								<div class="question-display-frame-date">
 									<p>投稿:{{ $answer->question->created_at->format('Y年m月d日 H:i') }}</p>
 									@if($answer->question->created_at != $answer->question->updated_at)

@@ -9,9 +9,9 @@
 <div class="content">
     <h2 class="content-header">{{ $appname }}について</h2>
 
-    <p style="font-weight: bold; font-size: 18px;">
+    <p style="font-weight: bold; font-size: 18px; width: 520px; margin: 20px auto;">
         本サイトは日頃の悩みや疑問を気軽に質問できるサイトです。<br>
-        また他の人の質問に回答することもできます。
+        また他のユーザーの質問に回答することもできます。
         <br>
         @guest
             本サイトを利用するにはまず<a href="{{ url('register') }}">新規会員登録</a>してください。<br>
