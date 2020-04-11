@@ -29,6 +29,8 @@ Route::get('/list/questions/{id}', 'QuestionController@list');
 	
 Route::get('/list/answers/{id}', 'AnswerController@list');
 
+Route::get('/ranking', 'RankController@index');
+
 // Route::get('/sample/mailable/preview', function () {
 //   return new App\Mail\ReviewMail($name='テスト', $question_id=1, $question_title='質問タイトル', $answer_id=1, $review_url='評価url');
 // });

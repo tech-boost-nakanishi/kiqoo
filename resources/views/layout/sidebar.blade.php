@@ -5,16 +5,8 @@
         <li>
             <a href="/">Home</a>
         </li>
-        <li class="ranking-menu">
-            <a href="#">User Ranking</a>
-            <ul class="sub-menu">
-                <li>
-                    <a href="#">質問が多い順</a>
-                </li>
-                <li>
-                    <a href="#">回答が多い順</a>
-                </li>
-            </ul>
+        <li>
+            <a href="{{ url('ranking') }}">Ranking</a>
         </li>
         <li>
             <a href="{{ url('about') }}">About</a>

@@ -16,6 +16,8 @@ use App\Answer;
 
 use App\User;
 
+use App\View;
+
 use Session;
 
 use App\Picture;
@@ -31,6 +33,10 @@ class QuestionController extends Controller
 
 	public function show($id){
 		$question = Question::findOrFail($id);
+
+		$views = $question->view()->first();
+		$views->view = $views->view + 1;
+		$views->save();
 
 		$answers = $question->answers()->orderBy('created_at', 'desc')->get();
 		return view('question.index', ['question' => $question , 'answers' => $answers]);
@@ -129,6 +135,10 @@ class QuestionController extends Controller
 	
 		$question->fill($form);
 		$question->save();
+
+		$view = new View;
+		$view->question_id = $question->id;
+		$view->save();
 
 		if(!empty($request->file('image_paths'))){
 			foreach ($request->file('image_paths') as $index => $e) {

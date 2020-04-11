@@ -7,9 +7,6 @@
 
 @section('content')
 <div class="content">
-    @if(session('login'))
-        <div class="alert alert-info" role="alert" style="width: 100%;">{{ session('login') }}</div>
-    @endif
     @if(session('logout'))
         <div class="alert alert-info" role="alert" style="width: 100%;">{{ session('logout') }}</div>
     @endif

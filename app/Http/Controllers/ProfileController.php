@@ -19,6 +19,7 @@ class ProfileController extends Controller
     	$user = User::findOrFail($id);
     	$answers = $user->answers()->get();
     	$reviews = [];
+        $count = 0;
     	foreach ($answers as $answer) {
             $reviews[] = $answer->review()->first();
     	}
@@ -27,7 +28,6 @@ class ProfileController extends Controller
     		$review_percent = 0;
     	}else{
     		$sum = 0;
-            $count = 0;
     		foreach ($reviews as $key => $value) {
                 if(!is_null($value->review)){
                     $sum += $value->review;

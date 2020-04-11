@@ -30,16 +30,21 @@ class ReviewController extends Controller
     	$this->validate($request, Review::$rules);
 
     	$review = Review::where('answer_id', $request->answer_id)->first();
-    	$review->question_user_id = $request->question_user_id;
-    	$review->answer_id = $request->answer_id;
-    	$review->review = $request->review;
-    	$form = $request->all();
+        if($review->review == null){
+            $review->question_user_id = $request->question_user_id;
+            $review->answer_id = $request->answer_id;
+            $review->review = $request->review;
+            $form = $request->all();
 
-    	unset($form['_token']);
-    	unset($form['review']);
-    	$review->save();
+            unset($form['_token']);
+            unset($form['review']);
+            $review->save();
 
-    	return redirect('/answer/review/' . $request->answer_id)->with('review', '評価を受け付けました。');
+            return redirect('/answer/review/' . $request->answer_id)->with('review', '評価を受け付けました。');
+        }else{
+            return redirect('/answer/review/' . $request->answer_id)->with('reviewed', 'すでに評価済です。');
+        }
+    	
     }
 
     public function list()

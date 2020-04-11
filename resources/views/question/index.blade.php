@@ -16,6 +16,7 @@
 				@if($question->created_at != $question->updated_at)
 					<p>更新:{{ $question->updated_at->format('Y年m月d日 H:i') }}</p>
 				@endif
+				<p>閲覧数：{{ $question->view->view }}</p>
 			</div>
 		</div>
 		<h2 class="question-display-frame-title">{{ $question->title }}</h2>

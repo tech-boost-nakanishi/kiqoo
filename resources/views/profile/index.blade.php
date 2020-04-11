@@ -7,6 +7,10 @@
 
 @section('content')
 <div class="content">
+    @if(session('login'))
+        <div class="alert alert-info" role="alert" style="width: 100%;">{{ session('login') }}</div>
+    @endif
+    
     <h2 class="content-header">プロフィール画面</h2>
 
     <div class="profile-area">

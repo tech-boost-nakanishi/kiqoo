@@ -32,4 +32,12 @@ class Answer extends Model
 	{
 		return $this->hasOne("App\Review");
 	}
+
+	public static function boot() 
+	{
+	    parent::boot();
+	    static::deleting(function($answer) {
+	        $answer->review()->delete();
+	    });
+	}
 }

@@ -17,6 +17,10 @@
 		<div class="alert alert-danger" role="alert" style="width: 100%;">{{ $errors->first('review') }}</div>
 	@endif
 
+	@if(session('reviewed'))
+		<div class="alert alert-danger" role="alert" style="width: 100%;">{{ session('reviewed') }}</div>
+	@endif
+
 	<h3 style="text-align: center;">質問文</h3>
 	<hr style="margin: 0;">
 

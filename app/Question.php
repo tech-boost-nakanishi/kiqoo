@@ -28,6 +28,11 @@ class Question extends Model
 		return $this->hasMany("App\Answer");
 	}
 
+	public function view()
+	{
+		return $this->hasOne("App\View");
+	}
+
 	public static function boot() 
 	{
 	    parent::boot();

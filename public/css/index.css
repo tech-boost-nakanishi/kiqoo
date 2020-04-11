@@ -134,42 +134,9 @@ header form:after {
 	text-align: left;
 }
 
-.side-menu li .sub-menu {
-	display: none;
-	width: 160px;
-	padding-left: 0;
-	position: absolute;
-	margin-top: -65px;
-	margin-left: 150px;
-	z-index: 2;
-}
-
-.side-menu li .sub-menu li a {
-	font-size: 20px;
-	background-color: #fff;
-}
-
-.side-menu li .sub-menu li a:before {
-  content: "";
-  position: absolute;
-  top: 15px;
-  left: -14px;
-  margin-left: -15px;
-  border: 15px solid transparent;
-  border-right: 15px solid #fff;
-}
-
-.side-menu .ranking-menu:hover .sub-menu{
-	display: block;
-}
-
 .side-menu li a:hover {
 	background-color: #CCCBCB;
 	border-right: 5px solid #FC0101;
-}
-
-.side-menu li .sub-menu li a:hover {
-	background-color: #CCCBCB;
 }
 
 .content {
@@ -468,6 +435,43 @@ header form:after {
 .profile-area-bottom p {
 	font-size: 18px;
 	margin: 5px;
+}
+
+.selectrank {
+	float: left;
+	width:80%;
+    /*margin:1em auto;*/
+  	position:relative;
+}
+
+.selectrank select {
+	-webkit-appearance:none;
+    appearance:none;
+	width:100%;
+	padding:5px;
+	box-sizing:border-box;
+	font-size:1em;
+	border:#ccc 1px solid;
+	border-radius:0;
+	background:#fff;
+}
+
+.selectrank + input[type="submit"] {
+	float: left;
+}
+
+.selectrank::after{
+	content:"";
+	display:block;
+	clear: both;
+	width:10px;
+	height:10px;
+	position:absolute;
+	right:5%;
+	top:35%;
+	border-bottom:#333 2px solid;
+	border-right:#333 2px solid;
+	transform:rotate(45deg)translateY(-30%);
 }
 
 footer {
