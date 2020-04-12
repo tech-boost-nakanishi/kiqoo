@@ -18,7 +18,7 @@ use App\User;
 
 use App\View;
 
-use Session;
+use Cookie;
 
 use App\Picture;
 
@@ -34,9 +34,13 @@ class QuestionController extends Controller
 	public function show($id){
 		$question = Question::findOrFail($id);
 
-		$views = $question->view()->first();
-		$views->view = $views->view + 1;
-		$views->save();
+		if(Cookie::get(config('app.name') . 'questionid' . $question->id) === null){
+			Cookie::queue(config('app.name') . 'questionid' . $question->id, $question->id, 10);
+
+			$view = $question->view()->first();
+			$view->view = $view->view + 1;
+			$view->save();
+		}
 
 		$answers = $question->answers()->orderBy('created_at', 'desc')->get();
 		return view('question.index', ['question' => $question , 'answers' => $answers]);

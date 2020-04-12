@@ -17,13 +17,25 @@
                     <option value="manyquestions" @if(request()->input('sortby') == 'manyquestions') selected  @endif>質問が多いユーザー順</option>
                     <option value="manyanswers" @if(request()->input('sortby') == 'manyanswers') selected  @endif>回答が多いユーザー順</option>
                     <option value="highreviews" @if(request()->input('sortby') == 'highreviews') selected  @endif>評価が高いユーザー順</option>
-                    <option value="manyviewquestions" @if(request()->input('sortby') == 'manyviewquestions') selected  @endif>閲覧が多い質問順</option>
+                    <option value="manyviewsquestion" @if(request()->input('sortby') == 'manyviewsquestion') selected  @endif>閲覧数が多い質問順</option>
                 </select>
             </div>
             {{ csrf_field() }}
             <input type="submit" class="btn btn-primary" value="表示">
         </div>
     </form>
+
+    <div style="clear: both;"></div>
+
+    @if(request()->input('sortby') == "manyquestions")
+        <p>質問が多いユーザー順</p>
+    @elseif(request()->input('sortby') == "manyanswers")
+        <p>回答が多いユーザー順</p>
+    @elseif(request()->input('sortby') == "highreviews")
+        <p>評価が高いユーザー順</p>
+    @elseif(request()->input('sortby') == "manyviewsquestion")
+        <p>閲覧数が多い質問順</p>
+    @endif
 </div>
 @endsection
 
