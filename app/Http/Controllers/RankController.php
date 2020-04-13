@@ -20,7 +20,7 @@ class RankController extends Controller
 
     	if(isset($request->sortby)){
 	    	if($request->sortby == "manyquestions" || $request->sortby == "manyanswers" || $request->sortby == "highreviews"){
-	    		$users = User::get(["id", "name"]);
+	    		$users = User::get(["id", "name", "image_path"]);
 	    		foreach ($users as $key => $value) {
 	    			$questions = $value->questions()->get();
 	    			$value->questions = count($questions);
@@ -77,10 +77,48 @@ class RankController extends Controller
 	    		array_multisort($sort, SORT_DESC, $result);
 	    	}
 
+	    	$rank = 1;
+	    	$tie = 0;
+	    	$pre = $result[count($result) - 1];
+	    	foreach ($result as $key => $value) {
+	    		if($request->sortby == "manyquestions"){
+	    			if($pre->questions == $value->questions){
+	    				$tie++;
+	    			}else{
+	    				$rank = $rank + $tie;
+	    				$tie = 1;
+	    			}
+	    		}elseif($request->sortby == "manyanswers"){
+	    			if($pre->answers == $value->answers){
+	    				$tie++;
+	    			}else{
+	    				$rank = $rank + $tie;
+	    				$tie = 1;
+	    			}
+	    		}elseif($request->sortby == "highreviews"){
+	    			if($pre->review_avg == $value->review_avg){
+	    				$tie++;
+	    			}else{
+	    				$rank = $rank + $tie;
+	    				$tie = 1;
+	    			}
+	    		}elseif($request->sortby == "manyviewsquestion"){
+	    			if($pre->view == $value->view){
+	    				$tie++;
+	    			}else{
+	    				$rank = $rank + $tie;
+	    				$tie = 1;
+	    			}
+	    		}
+	    		
+	    		$value->rank = $rank;
+	    		$pre = $value;
+	    	}
+
 
 	    	if(count($result) > 0){
-				$PerPage = 1;   //1ページあたりの件数
-				$displayData = array_chunk((array)$result, $PerPage);
+				$PerPage = 10;   //1ページあたりの件数
+				$displayData = array_chunk($result, $PerPage);
 		        $currentPageNo = $request->input('page', 1);
 
 		        $pagination = new LengthAwarePaginator(

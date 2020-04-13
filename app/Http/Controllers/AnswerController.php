@@ -136,6 +136,6 @@ class AnswerController extends Controller
 		$disk = Storage::disk('s3');
 		$disk->delete($img);
 		$answer->delete();
-		return redirect('/list/answers')->with('answerdelete', '回答を削除しました。');
+		return redirect('/list/answers/' . Auth::user()->id)->with('answerdelete', '回答を削除しました。');
 	}
 }

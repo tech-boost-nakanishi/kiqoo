@@ -218,6 +218,6 @@ class QuestionController extends Controller
 		$disk = Storage::disk('s3');
 		$disk->delete($img);
 		$question->delete();
-		return redirect('/list/questions')->with('questiondelete', '投稿を削除しました。');
+		return redirect('/list/questions/' . Auth::user()->id)->with('questiondelete', '投稿を削除しました。');
 	}
 }

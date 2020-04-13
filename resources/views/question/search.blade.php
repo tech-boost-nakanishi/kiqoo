@@ -18,6 +18,8 @@
 		            <h3 class="search-question-frame-title">{!! $question->title !!}</h3>
 		            <p class="search-question-frame-body">{!! \Str::limit($question->body, 250) !!}</p>
 		            <p class="search-question-frame-date">{{ $question->created_at->format('Y年m月d日 H:i') }}</p>
+		            <p class="search-question-frame-view">閲覧数：{{ $question->view->view }}</p>
+            		<div style="clear: both;"></div>
 		            <a href="{{ action('QuestionController@show', ['id' => $question->id]) }}"></a>
 		        </div>
 		    @endforeach
