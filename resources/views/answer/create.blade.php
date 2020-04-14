@@ -7,6 +7,14 @@
 
 @section('content')
 <div class="content">
+	@if(session('login'))
+        <div class="alert alert-info" role="alert" style="width: 100%;">{{ session('login') }}</div>
+    @endif
+
+    @if(session('register'))
+        <div class="alert alert-info" role="alert" style="width: 100%;">{{ session('register') }}</div>
+    @endif
+
 	<h2 class="content-header">回答投稿画面</h2>
 
 	<a href="#" class="btn btn-primary question-btn" data-toggle="modal" data-target="#questionModal">質問を見る</a>

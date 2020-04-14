@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
+use Cookie;
 
 class RegisterController extends Controller
 {
@@ -22,6 +25,25 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+
+        if(Cookie::get('redirectafterregister') !== null){
+            $questionid = Cookie::get('redirectafterregister');
+            Cookie::queue(Cookie::forget('redirectafterregister'));
+            return $this->registered($request, $user)
+                        ?: redirect()->action('AnswerController@add', ['id' => $questionid])->with('register', '登録ありがとうございます。');
+        }else{
+            return $this->registered($request, $user)
+                        ?: redirect()->action('ProfileController@show', ['id' => Auth::user()->id])->with('register', '登録ありがとうございます。');
+        }
+    }
 
     /**
      * Where to redirect users after registration.

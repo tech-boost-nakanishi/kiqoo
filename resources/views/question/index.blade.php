@@ -32,6 +32,15 @@
 <a href="{{ action('AnswerController@add', ['id' => $question->id]) }}" class="btn btn-primary answer-btn">回答する</a>
 @endauth
 
+@guest
+<form action="{{ route('login') }}" method="get" enctype="multipart/form-data">
+	<input type="hidden" name="redirectafterregister" value="{{ $question->id }}">
+	{{ csrf_field() }}
+	<input type="submit" class="btn btn-primary" value="ログインして回答する" style="font-size: 18px;">
+</form>
+<!-- <a href="{{ action('AnswerController@add', ['id' => $question->id]) }}" class="btn btn-primary answer-btn" style="width: 220px;">ログインして回答する</a> -->
+@endguest
+
 	<div class="answer-count">
 		回答({{ count($answers) }}件)
 	</div>

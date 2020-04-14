@@ -56,6 +56,7 @@
                     </div>
                     <p style="float: left; font-weight: bold; margin-left: 10px;">{{ round($result->review_avg, 1) }}</p>
                 </div>
+                 <div style="clear: both;"></div>
             </div>
             <div style="clear: both;"></div>
         @endforeach
