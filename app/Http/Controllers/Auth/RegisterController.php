@@ -33,22 +33,23 @@ class RegisterController extends Controller
     {
         $this->validator($request->all())->validate();
 
-        $user = User::where('email', $request->email)->where('email_verify_token', $request->email_token)->first();
+        $email_verify_token = Hash::make(str_random(40));
+        $email_verify_token = str_replace('/', '.', $email_verify_token);
+        $user = new User;
         $user->name = $request->name;
         $user->password = Hash::make($request->password);
+        $user->email = $request->email;
+        $user->email_verify_token = $email_verify_token;
         $user->save();
 
-        $this->guard()->login($user);
+        $this->guard()->logout($user);
 
-        if(Cookie::get('redirectafterregister') !== null){
-            $questionid = Cookie::get('redirectafterregister');
-            Cookie::queue(Cookie::forget('redirectafterregister'));
-            return $this->registered($request, $user)
-                        ?: redirect()->action('AnswerController@add', ['id' => $questionid])->with('register', '登録ありがとうございます。');
-        }else{
-            return $this->registered($request, $user)
-                        ?: redirect()->action('ProfileController@show', ['id' => Auth::user()->id])->with('register', '登録ありがとうございます。');
-        }
+        Mail::to($user->email)
+        ->send(new RegisterMail(
+            $user = $user,
+        ));
+
+        return view('auth.register_emailcheck_success');
     }
 
     /**
@@ -78,6 +79,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'min:6', 'max:255', 'unique:users', 'regex:/^[a-zA-Z0-9]+$/'],
+            'email' => ['required', 'email', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -104,17 +106,6 @@ class RegisterController extends Controller
 
     public function emailcheck(Request $request)
     {
-        $rules = [
-            'email' => 'required|email|unique:users',
-        ];
-        $messages = [
-            'email.required' => 'メールアドレスを入力してください。',
-            'email.email' => '正しいメールアドレスを入力してください。',
-            'email.unique' => 'このメールアドレスは存在します。',
-        ];
-        $validator = Validator::make($request->all(), $rules, $messages);
-        $validated = $validator->validate();
-
         $email_verify_token = Hash::make(str_random(40));
         $email_verify_token = str_replace('/', '.', $email_verify_token);
         $user = new User;
@@ -133,30 +124,17 @@ class RegisterController extends Controller
     public function maincheck($email, $token)
     {
         $user = User::where('email', $email)->where('email_verify_token', $token)->first();
-        if($user !== null && empty($user->name)){
-            return view('auth.register', ['email' => $user->email , 'email_token' => $token]);
+        if($user !== null){
+            $this->guard()->login($user);
+            if(Cookie::get('redirectafterregister') !== null){
+                $questionid = Cookie::get('redirectafterregister');
+                Cookie::queue(Cookie::forget('redirectafterregister'));
+                return redirect()->action('AnswerController@add', ['id' => $questionid])->with('register', '登録ありがとうございます。');
+            }else{
+                return redirect()->action('ProfileController@show', ['id' => Auth::user()->id])->with('register', '登録ありがとうございます。');
+            }
         }else{
             abort(404);
-        }
-    }
-
-    public function mainregister(Request $request)
-    {
-        $user = User::where('email', $request->$email)->where('email_verify_token', $token)->first();
-        $user->name = $request->name;
-        $user->password = Hash::make($request->password);
-        $user->save();
-
-        $this->guard()->login($user);
-
-        if(Cookie::get('redirectafterregister') !== null){
-            $questionid = Cookie::get('redirectafterregister');
-            Cookie::queue(Cookie::forget('redirectafterregister'));
-            return $this->registered($request, $user)
-                        ?: redirect()->action('AnswerController@add', ['id' => $questionid])->with('register', '登録ありがとうございます。');
-        }else{
-            return $this->registered($request, $user)
-                        ?: redirect()->action('ProfileController@show', ['id' => Auth::user()->id])->with('register', '登録ありがとうございます。');
         }
     }
 }

@@ -15,7 +15,7 @@
             <ul class="right-nav">
                 @guest
                     <li><a class="nav-link" href="{{ url('login') }}">ログイン</a></li>
-                    <li><a class="nav-link" href="{{ url('register/emailcheck') }}">新規登録</a></li>
+                    <li><a class="nav-link" href="{{ url('register') }}">新規登録</a></li>
                 @else
                     <li class="dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="position: relative; padding-left: 60px;">

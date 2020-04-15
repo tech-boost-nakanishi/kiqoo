@@ -11,7 +11,7 @@
                 <div class="card-header orange auth-header">新規仮登録</div>
 
                 <div class="card-body">
-                    メールアドレス宛に本登録用のリンクを記載しています。
+                    メールアドレス宛に本登録用のリンクを記載しています。<br>
                     そちらをクリックし本登録を完了させてください。
                 </div>
             </div>

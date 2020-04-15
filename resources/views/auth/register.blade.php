@@ -1,5 +1,5 @@
 @extends('layout.common')
-@section('title', '新規本登録 - ' . $appname)
+@section('title', '新規仮登録 - ' . $appname)
 
 @include('layout.header')
 
@@ -8,7 +8,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8 middle">
             <div class="card">
-                <div class="card-header orange auth-header">新規本登録</div>
+                <div class="card-header orange auth-header">新規仮登録</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
@@ -32,7 +32,13 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">メールアドレス</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ $email }}" required>
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 
@@ -57,8 +63,6 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
-
-                        <input type="hidden" name="email_token" value="{{ $email_token }}">
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">

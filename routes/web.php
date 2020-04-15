@@ -19,13 +19,7 @@ Route::get('/about', function(){
 
 Route::get('/logout', 'HomeController@logout');
 
-Route::get('/register/emailcheck', 'Auth\RegisterController@add');
-
-Route::post('/register/emailcheck', 'Auth\RegisterController@emailcheck');
-
 Route::get('/register/emailcheck/{email}/{token}', 'Auth\RegisterController@maincheck');
-
-Route::post('/register/emailcheck/{email}/{token}', 'Auth\RegisterController@mainregister');
 
 Route::get('/questions/{id}', 'QuestionController@show');
 
@@ -38,12 +32,6 @@ Route::get('/list/questions/{id}', 'QuestionController@list');
 Route::get('/list/answers/{id}', 'AnswerController@list');
 
 Route::get('/ranking', 'RankController@index');
-
-// Route::get('/sample/mailable/preview', function () {
-//   return new App\Mail\ReviewMail($name='テスト', $question_id=1, $question_title='質問タイトル', $answer_id=1, $review_url='評価url');
-// });
-
-//Route::get('/sample/mailable/send', 'MailController@reviewmail');
 
 Route::group(['middleware' => 'auth'], function() {
 	Route::get('/question/create', 'QuestionController@add');
@@ -64,5 +52,3 @@ Route::group(['middleware' => 'auth'], function() {
 });
 
 Auth::routes();
-
-Route::get('/home', 'QuestionController@index')->name('home');
