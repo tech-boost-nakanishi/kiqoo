@@ -28,59 +28,63 @@
     <div style="clear: both;"></div>
 
     @if(request()->input('sortby') == "manyquestions" || request()->input('sortby') == "manyanswers" || request()->input('sortby') == "highreviews")
-        @foreach($pagination as $result)
-            <div class="user-ranking-frame">
-                <div class="user-ranking-frame-rank">{{ $result->rank }}</div>
-                <p class="profile-image" style="width: 50px; height: 50px; background-image: url('{{ $result->image_path }}'); float: left;"></p>
-                <div class="user-ranking-frame-right">
-                    <p><a href="{{ action('ProfileController@show', ['id' => $result->id]) }}">{{ $result->name }}</a>さん</p>
-                    <div style="clear: both;"></div>
-                    <p><a href="{{ action('QuestionController@list', ['id' => $result->id]) }}">質問：{{ $result->questions }}件</a></p>
-                    <p><a href="{{ action('AnswerController@list', ['id' => $result->id]) }}">回答：{{ $result->answers }}件</a></p>
-                    <p style="float: left;">平均評価：</p>
-                    <div class="review-frame" style="float: left; font-size: 16px;">
-                        <div class="review-frame-front" style="width: {{ $result->review_percent }}%;">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
+        @if(!empty($pagination))
+            @foreach($pagination as $result)
+                <div class="user-ranking-frame">
+                    <div class="user-ranking-frame-rank">{{ $result->rank }}</div>
+                    <p class="profile-image" style="width: 50px; height: 50px; background-image: url('{{ $result->image_path }}'); float: left;"></p>
+                    <div class="user-ranking-frame-right">
+                        <p><a href="{{ action('ProfileController@show', ['id' => $result->id]) }}">{{ $result->name }}</a>さん</p>
+                        <div style="clear: both;"></div>
+                        <p><a href="{{ action('QuestionController@list', ['id' => $result->id]) }}">質問：{{ $result->questions }}件</a></p>
+                        <p><a href="{{ action('AnswerController@list', ['id' => $result->id]) }}">回答：{{ $result->answers }}件</a></p>
+                        <p style="float: left;">平均評価：</p>
+                        <div class="review-frame" style="float: left; font-size: 16px;">
+                            <div class="review-frame-front" style="width: {{ $result->review_percent }}%;">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="review-frame-back">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
                         </div>
-                        <div class="review-frame-back">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
+                        <p style="float: left; font-weight: bold; margin-left: 10px;">{{ round($result->review_avg, 1) }}</p>
                     </div>
-                    <p style="float: left; font-weight: bold; margin-left: 10px;">{{ round($result->review_avg, 1) }}</p>
+                     <div style="clear: both;"></div>
                 </div>
-                 <div style="clear: both;"></div>
-            </div>
-            <div style="clear: both;"></div>
-        @endforeach
-
-        <div class="d-flex justify-content-center">
-            {{ $pagination->appends(request()->input())->links() }}
-        </div>
-    @elseif(request()->input('sortby') == "manyviewsquestion")
-        @foreach($pagination as $question)
-            <p style="font-size: 30px; float: left; margin-right: 10px;">{{ $question->rank }}</p>
-            <div class="search-question-frame" style="float: left; width: 96%;">
-                <h3 class="search-question-frame-title">{{ $question->title }}</h3>
-                <p class="search-question-frame-body">{{ \Str::limit($question->body, 250) }}</p>
-                <p class="search-question-frame-date">{{ $question->created_at->format('Y年m月d日 H:i') }}</p>
-                <p class="search-question-frame-view">閲覧数：{{ $question->view }}</p>
                 <div style="clear: both;"></div>
-                <a href="{{ action('QuestionController@show', ['id' => $question->id]) }}"></a>
-            </div>
-            <div style="clear: both;"></div>
-        @endforeach
+            @endforeach
 
-        <div class="d-flex justify-content-center">
-            {{ $pagination->appends(request()->input())->links() }}
-        </div>
+            <div class="d-flex justify-content-center">
+                {{ $pagination->appends(request()->input())->links() }}
+            </div>
+        @endif
+    @elseif(request()->input('sortby') == "manyviewsquestion")
+        @if(!empty($pagination))
+            @foreach($pagination as $question)
+                <p style="font-size: 30px; float: left; margin-right: 10px;">{{ $question->rank }}</p>
+                <div class="search-question-frame" style="float: left; width: 96%;">
+                    <h3 class="search-question-frame-title">{{ $question->title }}</h3>
+                    <p class="search-question-frame-body">{{ \Str::limit($question->body, 250) }}</p>
+                    <p class="search-question-frame-date">{{ $question->created_at->format('Y年m月d日 H:i') }}</p>
+                    <p class="search-question-frame-view">閲覧数：{{ $question->view }}</p>
+                    <div style="clear: both;"></div>
+                    <a href="{{ action('QuestionController@show', ['id' => $question->id]) }}"></a>
+                </div>
+                <div style="clear: both;"></div>
+            @endforeach
+
+            <div class="d-flex justify-content-center">
+                {{ $pagination->appends(request()->input())->links() }}
+            </div>
+        @endif
     @endif
 </div>
 @endsection

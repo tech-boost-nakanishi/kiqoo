@@ -19,6 +19,14 @@ Route::get('/about', function(){
 
 Route::get('/logout', 'HomeController@logout');
 
+Route::get('/register/emailcheck', 'Auth\RegisterController@add');
+
+Route::post('/register/emailcheck', 'Auth\RegisterController@emailcheck');
+
+Route::get('/register/emailcheck/{email}/{token}', 'Auth\RegisterController@maincheck');
+
+Route::post('/register/emailcheck/{email}/{token}', 'Auth\RegisterController@mainregister');
+
 Route::get('/questions/{id}', 'QuestionController@show');
 
 Route::get('/question/search', 'QuestionController@search');
@@ -57,4 +65,4 @@ Route::group(['middleware' => 'auth'], function() {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'QuestionController@index')->name('home');

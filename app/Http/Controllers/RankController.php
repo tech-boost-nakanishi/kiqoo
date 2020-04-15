@@ -79,7 +79,7 @@ class RankController extends Controller
 
 	    	$rank = 1;
 	    	$tie = 0;
-	    	$pre = $result[count($result) - 1];
+	    	$pre = 0;
 	    	foreach ($result as $key => $value) {
 	    		if($request->sortby == "manyquestions"){
 	    			if($pre->questions == $value->questions){

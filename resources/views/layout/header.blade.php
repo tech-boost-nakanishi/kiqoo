@@ -1,7 +1,7 @@
 @section('header')
 <div class="header-bar">
     <div class="row">
-        <header class="col-md-9 col-sm-12">
+        <header class="col-md-6 col-sm-12">
            <h1><a href=" {{ url('/') }}">{{ $appname }}</a></h1>
             <form action="{{ action('QuestionController@search') }}" method="get" enctype="multipart/form-data">
                 @if(strpos(url()->current(), '/question/search') != false)
@@ -15,7 +15,7 @@
             <ul class="right-nav">
                 @guest
                     <li><a class="nav-link" href="{{ url('login') }}">ログイン</a></li>
-                    <li><a class="nav-link" href="{{ url('register') }}">新規登録</a></li>
+                    <li><a class="nav-link" href="{{ url('register/emailcheck') }}">新規登録</a></li>
                 @else
                     <li class="dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="position: relative; padding-left: 60px;">
