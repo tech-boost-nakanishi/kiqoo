@@ -4,7 +4,7 @@
 @include('layout.header')
 
 @section('auth')
-<div class="auth-area">
+<div class="auth-area col-md-12">
     <div class="row justify-content-center">
         <div class="col-md-8 middle">
             <div class="card">

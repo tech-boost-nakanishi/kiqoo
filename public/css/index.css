@@ -22,16 +22,16 @@ body {
 
 header {
 	background-color: #fff;
-	height: 60px;
+	min-height: 60px;
+	height: auto;
 	line-height: 45px;
 	margin: auto;
 }
 
 h1 {
 	display: inline;
-	margin: 0 30px;
-	position: relative;
-	top: -5px;
+	margin-right: 20px;
+	line-height: 60px;
 	font-weight: bold;
 }
 
@@ -44,26 +44,22 @@ h1 a:hover {
 	color: #2E2EFE;
 }
 
-header form {
-	display: inline-block;
-	width: 400px;
+#searchModal form {
 	margin: 10px 0 0 30px;
 }
 
-header form input {
+#searchModal form input[type="text"] {
+	width: 70%;
 	float: left;
 }
 
-header form input[type="text"] {
-	width: 250px;
-	margin-right: 10px;
-}
-
-header form input[type="submit"] {
+#searchModal form input[type="submit"] {
+	margin-left: 10px;
 	display: inline-block;
+	float: left;
 }
 
-header form:after {
+#searchModal form:after {
 	clear: both;
 	display: block;
 	content: " ";
@@ -72,12 +68,13 @@ header form:after {
 .right-nav {
 	float: right;
 	margin: 0;
+	padding: 0;
 }
 
 .right-nav li {
 	float: left;
 	list-style-type: none;
-	margin-right: 30px;
+	margin-right: 10px;
 }
 
 .right-nav li a {
@@ -102,18 +99,17 @@ header form:after {
 }
 
 .wrapper {
-	width: 960px;
-	margin: 30px auto;
-	min-height: calc(100vh - 70px - 60px - 60px);
+	/*width: 960px;*/
+	/*margin: 30px auto;*/
+	/*min-height: calc(100vh - 70px - 60px - 60px);*/
 }
 
 .sidebar {
 	float: left;
-	margin-top: 10px;
 }
 
 .side-menu {
-	width: 150px;
+	width: 170px;
 	text-align: right;
 	padding: 0px;
 }
@@ -140,8 +136,8 @@ header form:after {
 
 .content {
 	float: left;
-	width: 758px;
-	padding: 10px 0 30px 30px;
+	/*width: 758px;*/
+	/*padding: 10px 0 30px 30px;*/
 }
 
 .content-header {
@@ -170,7 +166,7 @@ header form:after {
 	border: 1px solid #dcdcdc;
 	padding: 10px;
 	margin-bottom: 15px;
-	width: 730px;
+	width: 100%;
 	border-radius: 5px;
 }
 
@@ -234,7 +230,7 @@ header form:after {
 
 .middle {
 	position: relative;
-	top: 100px;
+	top: 30px;
 }
 
 .orange {
@@ -249,7 +245,7 @@ header form:after {
 }
 
 .question-display-frame {
-	width: 720px;
+	width: 100%;
 	border: 2px solid #58D3F7;
 	word-wrap: break-word;
 	padding: 10px;
@@ -271,7 +267,7 @@ header form:after {
 
 .question-display-frame-title {
 	float: left;
-	width: 545px;
+	width: 53%;
 	height: auto;
 	color: #000;
 	font-size: 22px;
@@ -305,7 +301,7 @@ header form:after {
 }
 
 .answer-display-frame {
-	width: 720px;
+	width: 100%;
 	border: 2px solid #000;
 	word-wrap: break-word;
 	padding: 10px;
@@ -329,7 +325,7 @@ header form:after {
 
 .answer-display-frame-right {
 	float: left;
-	width: 545px;
+	width: 53%;
 	padding-left: 15px;
 }
 
@@ -378,7 +374,7 @@ header form:after {
 
 .review-area {
 	margin: 20px auto;
-	width: 500px;
+	width: 80%;
 	display: flex;
 	justify-content: space-between;
 }
@@ -447,7 +443,7 @@ header form:after {
 
 .selectrank {
 	float: left;
-	width:80%;
+	width: 75%;
     /*margin:1em auto;*/
   	position:relative;
 }
@@ -529,7 +525,7 @@ footer span {
 .pageTop {
 	position: fixed;
 	right: 20px;
-	bottom: 20px;
+	bottom: 40px;
 	display: flex;
 	justify-content:
 	center;align-items: center;

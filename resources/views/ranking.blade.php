@@ -6,11 +6,11 @@
 @include('layout.sidebar')
 
 @section('content')
-<div class="content">
+<div class="content col-md-8 col-xs-12">
     <h2 class="content-header" style="margin-bottom: -20px;">ランキング</h2>
 
     <form action="{{ action('RankController@index') }}" method="get" enctype="multipart/form-data" style="margin-bottom: 10px;">
-        <div style="border: 1px solid #dcdcdc; padding: 10px; width: 500px; margin: 0 auto;">
+        <div style="border: 1px solid #dcdcdc; padding: 10px; margin: 0 auto;">
             <div class="form-group selectrank">
                 <select name="sortby" required>
                     <option value="">選択してください</option>
@@ -38,6 +38,7 @@
                         <div style="clear: both;"></div>
                         <p><a href="{{ action('QuestionController@list', ['id' => $result->id]) }}">質問：{{ $result->questions }}件</a></p>
                         <p><a href="{{ action('AnswerController@list', ['id' => $result->id]) }}">回答：{{ $result->answers }}件</a></p>
+                        <br>
                         <p style="float: left;">平均評価：</p>
                         <div class="review-frame" style="float: left; font-size: 16px;">
                             <div class="review-frame-front" style="width: {{ $result->review_percent }}%;">
@@ -70,7 +71,7 @@
         @if(!empty($pagination))
             @foreach($pagination as $question)
                 <p style="font-size: 30px; float: left; margin-right: 10px;">{{ $question->rank }}</p>
-                <div class="search-question-frame" style="float: left; width: 96%;">
+                <div class="search-question-frame" style="float: left; width: 92%;">
                     <h3 class="search-question-frame-title">{{ $question->title }}</h3>
                     <p class="search-question-frame-body">{{ \Str::limit($question->body, 250) }}</p>
                     <p class="search-question-frame-date">{{ $question->created_at->format('Y年m月d日 H:i') }}</p>

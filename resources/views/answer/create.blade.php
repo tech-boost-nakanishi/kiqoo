@@ -6,7 +6,7 @@
 @include('layout.sidebar')
 
 @section('content')
-<div class="content">
+<div class="content col-md-8 col-xs-12">
 	@if(session('login'))
         <div class="alert alert-info" role="alert" style="width: 100%;">{{ session('login') }}</div>
     @endif

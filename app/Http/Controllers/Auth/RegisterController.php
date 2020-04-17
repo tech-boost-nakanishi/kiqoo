@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\RegisterMail;
 use Cookie;
+use Carbon\Carbon;
 
 class RegisterController extends Controller
 {
@@ -99,32 +100,12 @@ class RegisterController extends Controller
         ]);
     }
 
-    public function add()
-    {
-        return view('auth.register_emailcheck');
-    }
-
-    public function emailcheck(Request $request)
-    {
-        $email_verify_token = Hash::make(str_random(40));
-        $email_verify_token = str_replace('/', '.', $email_verify_token);
-        $user = new User;
-        $user->email = $request->email;
-        $user->email_verify_token = $email_verify_token;
-        $user->save();
-
-        Mail::to($user->email)
-        ->send(new RegisterMail(
-            $user = $user,
-        ));
-
-        return view('auth.register_emailcheck_success');
-    }
-
     public function maincheck($email, $token)
     {
         $user = User::where('email', $email)->where('email_verify_token', $token)->first();
         if($user !== null){
+            $user->email_verified_at = Carbon::now();
+            $user->save();
             $this->guard()->login($user);
             if(Cookie::get('redirectafterregister') !== null){
                 $questionid = Cookie::get('redirectafterregister');

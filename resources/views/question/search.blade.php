@@ -5,7 +5,7 @@
 @include('layout.sidebar')
 
 @section('content')
-<div class="content">
+<div class="content col-md-8 col-xs-12">
 	@if(!empty($keyword))
 		<h2 style="text-align: center; margin-top: 10px; margin-bottom: 20px; font-size: 26px;">「{{ $keyword }}」の検索結果</h2>
 

@@ -6,7 +6,7 @@
 @include('layout.sidebar')
 
 @section('content')
-<div class="content">
+<div class="content col-md-8 col-xs-12">
 	<h2 class="content-header">質問投稿画面</h2>
 
 	@if(session('message'))

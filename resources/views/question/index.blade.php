@@ -6,7 +6,7 @@
 @include('layout.sidebar')
 
 @section('content')
-<div class="content">
+<div class="content col-md-8 col-xs-12">
 	<div class="question-display-frame">
 		<div class="question-display-frame-left">
 			<p class="profile-image" style="width: 45px; height: 45px; background-image: url('{{ $question->user->image_path }}');"></p>

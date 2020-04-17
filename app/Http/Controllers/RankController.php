@@ -82,37 +82,40 @@ class RankController extends Controller
 	    	$pre = 0;
 	    	foreach ($result as $key => $value) {
 	    		if($request->sortby == "manyquestions"){
-	    			if($pre->questions == $value->questions){
+	    			if($pre == $value->questions){
 	    				$tie++;
 	    			}else{
 	    				$rank = $rank + $tie;
 	    				$tie = 1;
 	    			}
+	    			$pre = $value->questions;
 	    		}elseif($request->sortby == "manyanswers"){
-	    			if($pre->answers == $value->answers){
+	    			if($pre == $value->answers){
 	    				$tie++;
 	    			}else{
 	    				$rank = $rank + $tie;
 	    				$tie = 1;
 	    			}
+	    			$pre = $value->answers;
 	    		}elseif($request->sortby == "highreviews"){
-	    			if($pre->review_avg == $value->review_avg){
+	    			if($pre == $value->review_avg){
 	    				$tie++;
 	    			}else{
 	    				$rank = $rank + $tie;
 	    				$tie = 1;
 	    			}
+	    			$pre = $value->review_avg;
 	    		}elseif($request->sortby == "manyviewsquestion"){
-	    			if($pre->view == $value->view){
+	    			if($pre == $value->view){
 	    				$tie++;
 	    			}else{
 	    				$rank = $rank + $tie;
 	    				$tie = 1;
 	    			}
+	    			$pre = $value->view;
 	    		}
 	    		
 	    		$value->rank = $rank;
-	    		$pre = $value;
 	    	}
 
 

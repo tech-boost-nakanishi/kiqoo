@@ -6,10 +6,10 @@
 @include('layout.sidebar')
 
 @section('content')
-<div class="content">
+<div class="content col-md-8 col-xs-12">
     <h2 class="content-header">{{ $appname }}について</h2>
 
-    <p style="font-weight: bold; font-size: 18px; width: 520px; margin: 20px auto;">
+    <p style="font-weight: bold; font-size: 18px;">
         本サイトは日頃の悩みや疑問を気軽に質問できるサイトです。<br>
         また他のユーザーの質問に回答することもできます。
         <br>
