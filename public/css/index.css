@@ -379,6 +379,7 @@ header h1 a:hover {
 	position: relative;
 	font-size: 20px;
 	letter-spacing: -1em;
+	-webkit-font-variant-ligatures: no-common-ligatures;
 }
 
 .review-frame i {
