@@ -28,7 +28,7 @@ class LoginController extends Controller
      */
     //protected $redirectTo = '/';
 
-    protected function redirectTo(Request $request)
+    protected function redirectTo($request)
     {
         if(Auth::user()->email_verified_at !== null){
             if(Cookie::get('redirectafterregister') !== null){
