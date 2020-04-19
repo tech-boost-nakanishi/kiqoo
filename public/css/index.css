@@ -384,7 +384,7 @@ header h1 a:hover {
 
 .review-frame i {
 	display: inline-block;
-	letter-spacing: 0;
+	letter-spacing: normal;
 	font-size: 20px;
 	white-space: nowrap;
 }
