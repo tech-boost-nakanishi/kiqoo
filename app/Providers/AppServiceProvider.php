@@ -30,5 +30,9 @@ class AppServiceProvider extends ServiceProvider
                 'appname' => config('app.name'),
             ]);
         });
+
+        if (\App::environment('production')) {
+            \URL::forceScheme('https');
+        }
     }
 }
