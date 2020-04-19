@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use RedirectsUsers, ThrottlesLogins;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
+use Cookie;
 
 class LoginController extends Controller
 {
@@ -29,15 +31,17 @@ class LoginController extends Controller
      */
     //protected $redirectTo = '/';
 
-    protected function redirectTo($request)
+    protected function redirectTo()
     {
         if(Auth::user()->email_verified_at !== null){
             if(Cookie::get('redirectafterregister') !== null){
                 $questionid = Cookie::get('redirectafterregister');
                 Cookie::queue(Cookie::forget('redirectafterregister'));
-                return redirect()->action('AnswerController@add', ['id' => $questionid])->with('login', 'ログインしました。');
+                return $this->authenticated($request, $this->guard()->user())
+                    ?: redirect()->action('AnswerController@add', ['id' => $questionid])->with('login', 'ログインしました。');
             }else{
-                return redirect()->action('ProfileController@show', ['id' => Auth::user()->id])->with('login', 'ログインしました。');
+                return $this->authenticated($request, $this->guard()->user())
+                    ?: redirect()->action('ProfileController@show', ['id' => Auth::user()->id])->with('login', 'ログインしました。');
             }
         }else{
             $this->guard()->logout($this->guard()->user());
