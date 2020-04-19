@@ -28,9 +28,9 @@
 
     	<div class="container" style="margin-top: 30px; margin-bottom: 30px; min-height: calc(100vh - 70px - 60px - 60px);">
     		<div class="row">
-					@yield('sidebar')
-					@yield('content')
-					@yield('auth')
+				@yield('sidebar')
+				@yield('content')
+				@yield('auth')
 			</div>
 		</div>
 

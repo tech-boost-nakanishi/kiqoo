@@ -72,7 +72,7 @@ class AnswerController extends Controller
 			$answer_id = $answer->id
 		));
 
-		return redirect('/list/answers')->with('message', '回答ありがとうございます。');
+		return redirect('/list/answers/' . Auth::user()->id)->with('message', '回答ありがとうございます。');
     }
 
     public function list($id)

@@ -11,6 +11,10 @@
         <div class="alert alert-info" role="alert" style="width: 100%;">{{ session('logout') }}</div>
     @endif
 
+    @if(session('cancel'))
+        <div class="alert alert-success" role="alert" style="width: 100%;">{{ session('cancel') }}</div>
+    @endif
+
     <h2 class="content-header">新着一覧</h2>
 
     @if(count($questions) == 0)

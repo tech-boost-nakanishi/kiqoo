@@ -21,7 +21,7 @@
 
 	<div class="modal fade" id="questionModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content" style="width: 760px; height: 500px; margin-left: -130px;">
+            <div class="modal-content" style="height: 500px;">
                 <div class="modal-header">
                     <h4 class="modal-title" id="myModalLabel">{{ \Str::limit($question->title, 10) }}</h4>
                 </div>
@@ -29,7 +29,7 @@
                     <div class="question-display-frame">
 						<div class="question-display-frame-left">
 							<p class="profile-image" style="width: 45px; height: 45px; background-image: url('{{ $question->user->image_path }}');"></p>
-							<p><a href="{{ action('ProfileController@show', ['id' => $question->user->id]) }}">{{ $question->user->name }}</a></p>
+							<p><a href="{{ action('ProfileController@show', ['id' => $question->user->id]) }}">{{ $question->user->name }}</a>さん</p>
 							<div class="question-display-frame-date">
 								<p>投稿:{{ $question->created_at->format('Y年m月d日 H:i') }}</p>
 								@if($question->created_at != $question->updated_at)
@@ -51,26 +51,27 @@
             </div>
         </div>
     </div>
-
-	<form action="{{ action('AnswerController@create') }}" method="post" enctype="multipart/form-data">
-		<div class="form-group row">
-			@if($errors->has('body'))
-			　　<div class="alert alert-danger" role="alert" style="width: 100%;">{{ $errors->first('body') }}</div>
+	<div class="container">
+		<form action="{{ action('AnswerController@create') }}" method="post" enctype="multipart/form-data">
+			<div class="form-group row">
+				@if($errors->has('body'))
+				　　<div class="alert alert-danger" role="alert" style="width: 100%;">{{ $errors->first('body') }}</div>
+				@endif
+				<label>本文</label>
+				<textarea class="form-control" name="body" rows="15" placeholder="回答文を入力してください">{{ old('body') }}</textarea>
+			</div>
+			<div class="form-group row">
+				<label>画像:</label>
+				<input type="file" class="form-control-file" name="image_paths[]" multiple>
+			</div>
+			<input type="hidden" name="question_id" value="{{ $question->id }}">
+			@if(!empty($question))
+				<input type="hidden" name="question_user_id" value="{{ $question->user_id }}">
 			@endif
-			<label>本文</label>
-			<textarea class="form-control" name="body" rows="15" placeholder="回答文を入力してください">{{ old('body') }}</textarea>
-		</div>
-		<div class="form-group row">
-			<label>画像:</label>
-			<input type="file" class="form-control-file" name="image_paths[]" multiple>
-		</div>
-		<input type="hidden" name="question_id" value="{{ $question->id }}">
-		@if(!empty($question))
-			<input type="hidden" name="question_user_id" value="{{ $question->user_id }}">
-		@endif
-		{{ csrf_field() }}
-		<input type="submit" class="btn btn-primary" value="投稿">
-	</form>
+			{{ csrf_field() }}
+			<input type="submit" class="btn btn-primary" value="投稿">
+		</form>
+	</div>
 </div>
 @endsection
 

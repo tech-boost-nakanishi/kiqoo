@@ -49,6 +49,8 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('/list/unreviews', 'ReviewController@list');
 	Route::get('/profile/edit', 'ProfileController@edit');
 	Route::post('/profile/edit', 'ProfileController@update');
+	Route::get('/cancel', 'HomeController@cancel');
+	Route::get('/user/cancel', 'HomeController@delete');
 });
 
 Auth::routes();

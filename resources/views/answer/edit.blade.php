@@ -26,7 +26,7 @@
 	                    <div class="question-display-frame">
 							<div class="question-display-frame-left">
 								<p class="profile-image" style="width: 45px; height: 45px; background-image: url('{{ $answer->question->user->image_path }}');"></p>
-								<p><a href="{{ action('ProfileController@show', ['id' => $answer->question->user->id]) }}">{{ $answer->question->user->name }}</a></p>
+								<p><a href="{{ action('ProfileController@show', ['id' => $answer->question->user->id]) }}">{{ $answer->question->user->name }}</a>さん</p>
 								<div class="question-display-frame-date">
 									<p>投稿:{{ $answer->question->created_at->format('Y年m月d日 H:i') }}</p>
 									@if($answer->question->created_at != $answer->question->updated_at)
@@ -52,40 +52,42 @@
 		<p style="text-align: center; font-weight: bold; font-size: 20px;">質問は削除されました。</p>
 	@endif
 
-	<form action="{{ action('AnswerController@update') }}" method="post" enctype="multipart/form-data">
-		<div class="form-group row">
-			@if($errors->has('body'))
-			　　<div class="alert alert-danger" role="alert" style="width: 100%;">{{ $errors->first('body') }}</div>
+	<div class="container">
+		<form action="{{ action('AnswerController@update') }}" method="post" enctype="multipart/form-data">
+			<div class="form-group row">
+				@if($errors->has('body'))
+				　　<div class="alert alert-danger" role="alert" style="width: 100%;">{{ $errors->first('body') }}</div>
+				@endif
+				<label>本文</label>
+				<textarea class="form-control" name="body" rows="15" placeholder="回答文を入力してください">{{ $answer->body }}</textarea>
+			</div>
+			<div class="form-group row">
+				<label>画像:</label>
+				<input type="file" class="form-control-file" name="image_paths[]" multiple>
+			</div>
+			<div class="form-group row">
+				<label style="position: absolute;">設定中の画像の削除（複数選択可）</label><br>
+				<hr style="width: 100%; margin-top: 30px;">
+				@if(count($answer->pictures) > 0)
+					@foreach($answer->pictures as $pic)
+						<label for="removeimg{{ $pic->id }}" class="remove-image">
+							<input type="checkbox" name="remove[]" value="{{ $pic->id }}" id="removeimg{{ $pic->id }}" />
+							<img src="{{ $pic->image_path }}" height="150">
+							<i class="fas fa-check"></i>
+						</label>
+					@endforeach
+				@else
+					<p>設定中の画像はありません。</p>
+				@endif
+			</div>
+			<input type="hidden" name="id" value="{{ $answer->id }}">
+			@if(!empty($answer->question))
+				<input type="hidden" name="question_id" value="{{ $answer->question->id }}">
 			@endif
-			<label>本文</label>
-			<textarea class="form-control" name="body" rows="15" placeholder="回答文を入力してください">{{ $answer->body }}</textarea>
-		</div>
-		<div class="form-group row">
-			<label>画像:</label>
-			<input type="file" class="form-control-file" name="image_paths[]" multiple>
-		</div>
-		<div class="form-group row">
-			<label style="position: absolute;">設定中の画像の削除（複数選択可）</label><br>
-			<hr style="width: 100%; margin-top: 30px;">
-			@if(count($answer->pictures) > 0)
-				@foreach($answer->pictures as $pic)
-					<label for="removeimg{{ $pic->id }}" class="remove-image">
-						<input type="checkbox" name="remove[]" value="{{ $pic->id }}" id="removeimg{{ $pic->id }}" />
-						<img src="{{ $pic->image_path }}" height="150">
-						<i class="fas fa-check"></i>
-					</label>
-				@endforeach
-			@else
-				<p>設定中の画像はありません。</p>
-			@endif
-		</div>
-		<input type="hidden" name="id" value="{{ $answer->id }}">
-		@if(!empty($answer->question))
-			<input type="hidden" name="question_id" value="{{ $answer->question->id }}">
-		@endif
-		{{ csrf_field() }}
-		<input type="submit" class="btn btn-primary" value="更新">
-	</form>
+			{{ csrf_field() }}
+			<input type="submit" class="btn btn-primary" value="更新">
+		</form>
+	</div>
 </div>
 @endsection
 

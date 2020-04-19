@@ -38,6 +38,10 @@ class Answer extends Model
 	    parent::boot();
 	    static::deleting(function($answer) {
 	        $answer->review()->delete();
+
+	        foreach ($answer->pictures()->get() as $child) {
+	            $child->delete();
+	        }
 	    });
 	}
 }

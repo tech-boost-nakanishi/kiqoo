@@ -37,6 +37,12 @@ class Question extends Model
 	{
 	    parent::boot();
 	    static::deleting(function($question) {
+	        $question->view()->delete();
+
+	        foreach ($question->pictures()->get() as $child) {
+	            $child->delete();
+	        }
+
 	        foreach ($question->answers()->get() as $child) {
 	            $child->delete();
 	        }

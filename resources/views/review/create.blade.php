@@ -29,7 +29,7 @@
 
 		<div class="modal fade" id="questionModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
 	        <div class="modal-dialog">
-	            <div class="modal-content" style="width: 760px; height: 500px; margin-left: -130px;">
+	            <div class="modal-content" style="height: 500px;">
 	                <div class="modal-header">
 	                    <h4 class="modal-title" id="myModalLabel">{{ \Str::limit($answer->question->title, 10) }}</h4>
 	                </div>
@@ -37,7 +37,7 @@
 	                    <div class="question-display-frame">
 							<div class="question-display-frame-left">
 								<p class="profile-image" style="width: 45px; height: 45px; background-image: url('{{ $answer->question->user->image_path }}');"></p>
-								<p><a href="{{ action('ProfileController@show', ['id' => $answer->question->user->id]) }}">{{ $answer->question->user->name }}</a></p>
+								<p><a href="{{ action('ProfileController@show', ['id' => $answer->question->user->id]) }}">{{ $answer->question->user->name }}</a>さん</p>
 								<div class="question-display-frame-date">
 									<p>投稿:{{ $answer->question->created_at->format('Y年m月d日 H:i') }}</p>
 									@if($answer->question->created_at != $answer->question->updated_at)
@@ -70,7 +70,7 @@
 		<div class="answer-display-frame">
 			<div class="answer-display-frame-left">
 				<p class="profile-image" style="width: 45px; height: 45px; background-image: url('{{ $answer->user->image_path }}');"></p>
-				<p><a href="{{ action('ProfileController@show', ['id' => $answer->user->id]) }}">{{ $answer->user->name }}</a></p>
+				<p><a href="{{ action('ProfileController@show', ['id' => $answer->user->id]) }}">{{ $answer->user->name }}</a>さん</p>
 				<div class="answer-display-frame-date">
 					<p>投稿:{{ $answer->created_at->format('Y年m月d日 H:i') }}</p>
 					@if($answer->created_at != $answer->updated_at)

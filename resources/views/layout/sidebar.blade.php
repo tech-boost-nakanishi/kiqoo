@@ -1,6 +1,6 @@
 @section('sidebar')
-<!-- <div class="col-md-1"></div> -->
-<div class="sidebar col-md-3 col-xs-12" style="display: flex; justify-content: center;">
+<div class="col-md-1"></div>
+<div class="sidebar col-md-2 d-none d-sm-block">
     <div class="row">
         <ul class="side-menu col-md-12">
             <li>

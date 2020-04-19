@@ -46,4 +46,18 @@ class User extends Authenticatable
     {
         return $this->hasMany("App\Answer");
     }
+
+    public static function boot() 
+    {
+        parent::boot();
+        static::deleting(function($user) {
+            foreach ($user->questions()->get() as $child) {
+                $child->delete();
+            }
+
+            foreach ($user->answers()->get() as $child) {
+                $child->delete();
+            }
+        });
+    }
 }

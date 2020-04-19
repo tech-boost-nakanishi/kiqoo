@@ -10,7 +10,7 @@
 	<div class="question-display-frame">
 		<div class="question-display-frame-left">
 			<p class="profile-image" style="width: 45px; height: 45px; background-image: url('{{ $question->user->image_path }}');"></p>
-			<p><a href="{{ action('ProfileController@show', ['id' => $question->user->id]) }}">{{ $question->user->name }}</a></p>
+			<p><a href="{{ action('ProfileController@show', ['id' => $question->user->id]) }}">{{ $question->user->name }}</a>さん</p>
 			<div class="question-display-frame-date">
 				<p>投稿:{{ $question->created_at->format('Y年m月d日 H:i') }}</p>
 				@if($question->created_at != $question->updated_at)
@@ -38,7 +38,6 @@
 	{{ csrf_field() }}
 	<input type="submit" class="btn btn-primary" value="ログインして回答する" style="font-size: 18px;">
 </form>
-<!-- <a href="{{ action('AnswerController@add', ['id' => $question->id]) }}" class="btn btn-primary answer-btn" style="width: 220px;">ログインして回答する</a> -->
 @endguest
 
 	<div class="answer-count">
@@ -50,7 +49,7 @@
 			<div class="answer-display-frame">
 				<div class="answer-display-frame-left">
 					<p class="profile-image" style="width: 45px; height: 45px; background-image: url('{{ $answer->user->image_path }}');"></p>
-					<p><a href="{{ action('ProfileController@show', ['id' => $answer->user->id]) }}">{{ $answer->user->name }}</a></p>
+					<p><a href="{{ action('ProfileController@show', ['id' => $answer->user->id]) }}">{{ $answer->user->name }}</a>さん</p>
 					<div class="answer-display-frame-date">
 						<p>投稿:{{ $answer->created_at->format('Y年m月d日 H:i') }}</p>
 						@if($answer->created_at != $answer->updated_at)
