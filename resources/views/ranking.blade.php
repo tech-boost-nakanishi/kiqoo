@@ -40,7 +40,7 @@
                         <p><a href="{{ action('AnswerController@list', ['id' => $result->id]) }}">回答：{{ $result->answers }}件</a></p>
                         <br>
                         <p style="float: left;">平均評価：</p>
-                        <div class="review-frame">
+                        <div class="review-frame" style="float: left;">
                             <div class="review-frame-front" style="width: {{ $result->review_percent }}%;">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
