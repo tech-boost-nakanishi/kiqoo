@@ -40,7 +40,7 @@ class LoginController extends Controller
      */
     //protected $redirectTo = '/';
 
-    public function redirectTo()
+    public function redirectTo(Request $request)
     {
         if(Auth::user()->email_verified_at !== null){
             if(Cookie::get('redirectafterregister') !== null){
