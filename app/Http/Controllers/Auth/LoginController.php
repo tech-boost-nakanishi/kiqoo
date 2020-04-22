@@ -51,7 +51,7 @@ class LoginController extends Controller
                 return redirect()->action('ProfileController@show', ['id' => Auth::user()->id])->with('login', 'ログインしました。');
             }
         }else{
-            Auth::logout();
+            //Auth::logout();
             return view('auth.register_emailcheck_success');
         }
     }
