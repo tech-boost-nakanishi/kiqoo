@@ -40,20 +40,18 @@ class LoginController extends Controller
      */
     //protected $redirectTo = '/';
 
-    public function redirectTo(Request $request)
+    protected function redirectTo()
     {
         if(Auth::user()->email_verified_at !== null){
             if(Cookie::get('redirectafterregister') !== null){
                 $questionid = Cookie::get('redirectafterregister');
                 Cookie::queue(Cookie::forget('redirectafterregister'));
-                return $this->authenticated($request, $this->guard()->user())
-                    ?: redirect()->action('AnswerController@add', ['id' => $questionid])->with('login', 'ログインしました。');
+                return redirect()->action('AnswerController@add', ['id' => $questionid])->with('login', 'ログインしました。');
             }else{
-                return $this->authenticated($request, $this->guard()->user())
-                    ?: redirect()->action('ProfileController@show', ['id' => Auth::user()->id])->with('login', 'ログインしました。');
+                return redirect()->action('ProfileController@show', ['id' => Auth::user()->id])->with('login', 'ログインしました。');
             }
         }else{
-            $this->guard()->logout($this->guard()->user());
+            Auth::logout();
             return view('auth.register_emailcheck_success');
         }
     }
