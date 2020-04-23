@@ -62,22 +62,6 @@ class LoginController extends Controller
         }
     }
 
-    // protected function redirectTo()
-    // {
-    //     if(Auth::user()->email_verified_at !== null){
-    //         if(Cookie::get('redirectafterregister') !== null){
-    //             $questionid = Cookie::get('redirectafterregister');
-    //             Cookie::queue(Cookie::forget('redirectafterregister'));
-    //             return redirect()->action('AnswerController@add', ['id' => $questionid])->with('login', 'ログインしました。');
-    //         }else{
-    //             return redirect()->action('ProfileController@show', ['id' => Auth::user()->id])->with('login', 'ログインしました。');
-    //         }
-    //     }else{
-    //         //Auth::logout();
-    //         return view('auth.register_emailcheck_success');
-    //     }
-    // }
-
     /**
      * Create a new controller instance.
      *
