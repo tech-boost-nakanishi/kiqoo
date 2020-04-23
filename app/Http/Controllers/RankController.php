@@ -17,8 +17,18 @@ class RankController extends Controller
     	$result = [];
     	$sort = [];
     	$pagination = 0;
+    	$sortby = "";
 
     	if(isset($request->sortby)){
+    		if($request->sortby == "manyquestions"){
+    			$sortby = "質問が多いユーザー順";
+    		}elseif($request->sortby == "manyanswers"){
+    			$sortby = "回答が多いユーザー順";
+    		}elseif ($request->sortby == "highreviews") {
+    			$sortby = "評価が高いユーザー順";
+    		}elseif ($request->sortby == "manyviewsquestion") {
+    			$sortby = "閲覧数が多い質問順";
+    		}
 	    	if($request->sortby == "manyquestions" || $request->sortby == "manyanswers" || $request->sortby == "highreviews"){
 	    		$users = User::get(["id", "name", "image_path"]);
 	    		foreach ($users as $key => $value) {
@@ -133,6 +143,6 @@ class RankController extends Controller
 		        );
 			}
     	}
-    	return view('ranking', ['result' => $result , 'pagination' => $pagination]);
+    	return view('ranking', ['result' => $result , 'pagination' => $pagination , 'sortby' => $sortby]);
     }
 }

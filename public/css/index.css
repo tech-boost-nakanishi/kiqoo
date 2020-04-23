@@ -451,11 +451,10 @@ header h1 a:hover {
 .user-ranking-frame {
 	width: 100%;
 	height: auto;
-	margin-top: 15px;
 	border: 3px solid #dcdcdc;
 	border-radius: 5px;
 	font-size: 18px;
-	padding-top: 5px;
+	padding-left: 10px;
 }
 
 .user-ranking-frame p {
@@ -465,10 +464,8 @@ header h1 a:hover {
 }
 
 .user-ranking-frame-rank {
-	float: left;
-	width: 7%;
-	text-align: center;
-	line-height: 54px;
+	width: 100%;
+	padding-left: 10px;
 	font-size: 30px;
 	font-weight: bold;
 }

@@ -1,5 +1,10 @@
 @extends('layout.common')
+
+@if(!empty($sortby))
+@section('title', $sortby . ' - ' . $appname)
+@else
 @section('title', 'ランキング - ' . $appname)
+@endif
 
 @include('layout.header')
 
@@ -9,7 +14,7 @@
 <div class="content col-md-8 col-xs-12">
     <h2 class="content-header" style="margin-bottom: -20px;">ランキング</h2>
 
-    <form action="{{ action('RankController@index') }}" method="get" enctype="multipart/form-data" style="margin-bottom: 10px;">
+    <form action="{{ action('RankController@index') }}" method="get" enctype="multipart/form-data" style="margin-bottom: 30px;">
         <div style="border: 1px solid #dcdcdc; padding: 10px; margin: 0 auto;">
             <div class="form-group selectrank">
                 <select name="sortby" required>
@@ -31,7 +36,7 @@
         @if(!empty($pagination))
             @foreach($pagination as $result)
                 <div class="user-ranking-frame">
-                    <div class="user-ranking-frame-rank">{{ $result->rank }}</div>
+                    <div class="user-ranking-frame-rank">{{ $result->rank }}位</div>
                     <p class="profile-image" style="width: 50px; height: 50px; background-image: url('{{ $result->image_path }}'); float: left;"></p>
                     <div class="user-ranking-frame-right">
                         <p><a href="{{ action('ProfileController@show', ['id' => $result->id]) }}">{{ $result->name }}</a>さん</p>
@@ -70,16 +75,14 @@
     @elseif(request()->input('sortby') == "manyviewsquestion")
         @if(!empty($pagination))
             @foreach($pagination as $question)
-                <p style="font-size: 30px; float: left; margin-right: 10px;">{{ $question->rank }}</p>
-                <div class="search-question-frame" style="float: left; width: 92%;">
-                    <h3 class="search-question-frame-title">{{ $question->title }}</h3>
+                <div class="search-question-frame" style="width: 100%;">
+                    <h3 class="search-question-frame-title"><span style="color: #000;">{{ $question->rank }}位：</span>{{ $question->title }}</h3>
                     <p class="search-question-frame-body">{{ \Str::limit($question->body, 250) }}</p>
                     <p class="search-question-frame-date">{{ $question->created_at->format('Y年m月d日 H:i') }}</p>
                     <p class="search-question-frame-view">閲覧数：{{ $question->view }}</p>
                     <div style="clear: both;"></div>
                     <a href="{{ action('QuestionController@show', ['id' => $question->id]) }}"></a>
                 </div>
-                <div style="clear: both;"></div>
             @endforeach
 
             <div class="d-flex justify-content-center">
