@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use RedirectsUsers, ThrottlesLogins;
 use Cookie;
+use App\User;
+use Socialite;
+use Carbon\Carbon;
 
 class LoginController extends Controller
 {
@@ -60,6 +63,37 @@ class LoginController extends Controller
             $this->guard()->logout($this->guard()->user());
             return view('auth.register_emailcheck_success');
         }
+    }
+
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleGoogleCallback(Request $request)
+    {
+        $gUser = Socialite::driver('google')->stateless()->user();
+        
+        $user = User::where('email', $gUser->email)->first();
+        
+        if ($user === null) {
+            $user = $this->createUserByGoogle($gUser);
+        }
+        
+        \Auth::login($user, true);
+        return $this->sendLoginResponse($request);
+    }
+
+    public function createUserByGoogle($gUser)
+    {
+        $user = User::create([
+            'name'     => $gUser->email,
+            'email'    => $gUser->email,
+            'password' => \Hash::make(str_random(40)),
+        ]);
+        $user->email_verified_at = Carbon::now();
+        $user->save();
+        return $user;
     }
 
     /**

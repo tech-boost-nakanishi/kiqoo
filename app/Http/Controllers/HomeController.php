@@ -29,7 +29,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return redirect()->to(url()->previous('/error'));
+        return redirect('/');
     }
 
     public function logout()

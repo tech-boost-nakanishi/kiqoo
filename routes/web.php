@@ -33,6 +33,9 @@ Route::get('/list/answers/{id}', 'AnswerController@list');
 
 Route::get('/ranking', 'RankController@index');
 
+Route::get('/login/google', 'Auth\LoginController@redirectToGoogle');
+Route::get('/login/google/callback', 'Auth\LoginController@handleGoogleCallback');
+
 Route::group(['middleware' => 'auth'], function() {
 	Route::get('/question/create', 'QuestionController@add');
 	Route::post('/question/create', 'QuestionController@create');
