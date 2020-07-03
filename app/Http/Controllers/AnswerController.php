@@ -78,7 +78,7 @@ class AnswerController extends Controller
     public function list($id)
 	{
 		$user = User::findOrFail($id);
-		$answers = $user->answers()->orderBy('created_at', 'desc')->paginate(10);
+		$answers = $user->answers()->orderBy('created_at', 'desc')->paginate(5);
 		return view('answer.list', [ 'answers' => $answers , 'user' => $user ]);
 	}
 
