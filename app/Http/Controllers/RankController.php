@@ -50,7 +50,7 @@ class RankController extends Controller
 			    		$review_avg = 0;
 			    		$review_percent = 0;
 			    	}else{
-			    		foreach ($reviews as $key => $review) {
+			    		foreach ($reviews as $keys => $review) {
 			                if(!is_null($review->review)){
 			                    $sum += $review->review;
 			                    $count++;
