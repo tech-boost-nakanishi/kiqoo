@@ -27,7 +27,7 @@ use Storage;
 class QuestionController extends Controller
 {
 	public function index(Request $request){
-		$questions = Question::orderBy('created_at', 'desc')->paginate(10);
+		$questions = Question::orderBy('created_at', 'desc')->paginate(5);
 		return view('top', [ 'questions' => $questions ]);
 	}
 
@@ -89,7 +89,7 @@ class QuestionController extends Controller
 			}
 			array_multisort($sort, SORT_DESC, $questions);
 			if(count($questions) > 0){
-				$PerPage = 10;   //1ページあたりの件数
+				$PerPage = 5;   //1ページあたりの件数
 				$displayData = array_chunk($questions, $PerPage);
 		        $currentPageNo = $request->input('page', 1);
 

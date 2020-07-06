@@ -50,7 +50,7 @@ class RankController extends Controller
 			    		$review_avg = 0;
 			    		$review_percent = 0;
 			    	}else{
-			    		foreach ($reviews as $key => $review) {
+			    		foreach ($reviews as $keys => $review) {
 			                if(!is_null($review->review)){
 			                    $sum += $review->review;
 			                    $count++;
@@ -130,7 +130,7 @@ class RankController extends Controller
 
 
 	    	if(count($result) > 0){
-				$PerPage = 10;   //1ページあたりの件数
+				$PerPage = 5;   //1ページあたりの件数
 				$displayData = array_chunk($result, $PerPage);
 		        $currentPageNo = $request->input('page', 1);
 
